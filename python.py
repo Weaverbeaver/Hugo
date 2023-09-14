@@ -59,22 +59,26 @@ def tomlwrite(newtheme, newtitle, themeline, titleline, lines):
     tomlfile = open("hugo.toml", "w", encoding="utf-8")
     tomlfile.writelines(lines)
     tomlfile.close()
-    return
+    return tomlfile
 
 
 def hugoexecute():
     """execute hugo commandx, creating html+css in public folder"""
     result = subprocess.run(
-        ["pwsh.exe", "-Command", "hugo"], shell=True, capture_output=True, text=True
+        ["pwsh.exe", "-Command", "hugo"],
+        shell=True,
+        capture_output=True,
+        text=True,
+        check=True,
     )
     # output result
     print(result.stdout)
-    return
+    return result
 
 
 def movewebfiles():
     """moves the generator contents to another folder"""
-    return
+    return NotImplemented
 
 
 ### old!!!!!!!!!! ###
