@@ -69,7 +69,7 @@ def hugoexecute():
         shell=True,
         capture_output=True,
         text=True,
-        check=True,
+        check=False,
     )
     # output result
     print(result.stdout)
