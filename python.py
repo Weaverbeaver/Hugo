@@ -78,7 +78,7 @@ def movewebfiles():
 
 ### old!!!!!!!!!! ###
 #function to generate the site, outputs into public folder
-def websitegen():
+def websitegen(title):
 
     #list all themes in theme directory
     allthemes = os.listdir("themes/")
