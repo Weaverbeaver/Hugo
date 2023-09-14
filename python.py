@@ -1,5 +1,9 @@
-# import things
-import subprocess, sys, os, random
+"""import things"""
+import subprocess
+
+# import sys - not used
+import os
+import random
 
 
 def getthemes():
@@ -76,44 +80,44 @@ def movewebfiles():
 
 
 ### old!!!!!!!!!! ###
-def websitegen():
-    """function to generate the site, outputs into public folder"""
-    # list all themes in theme directory
-    allthemes = os.listdir("themes/")
-    print(allthemes)
-    # pick random theme in folder
-    themechoice = random.choice(allthemes)
-    print("Chosen theme = " + themechoice)
+# def websitegen():
+#     """function to generate the site, outputs into public folder"""
+#     # list all themes in theme directory
+#     allthemes = os.listdir("themes/")
+#     print(allthemes)
+#     # pick random theme in folder
+#     themechoice = random.choice(allthemes)
+#     print("Chosen theme = " + themechoice)
 
-    # change theme in hugo.toml
-    tomlfile = open("hugo.toml", "r")
-    lines = tomlfile.readlines()
-    tomlfile.close()
-    # theme will usually be stored in line 3, if not all lines are searched through
-    # if (len(lines)>=4) and ('theme' in lines[3]):
-    #     lines[3] = "theme = '"+themechoice+"'\n"
-    # else:
-    #     count = 0
-    #     for i in lines:
-    #         if 'theme' in i:
-    #             lines[count] = "theme = '"+themechoice+"'\n"
-    #         count += 1
+#     # change theme in hugo.toml
+#     tomlfile = open("hugo.toml", "r")
+#     lines = tomlfile.readlines()
+#     tomlfile.close()
+#     # theme will usually be stored in line 3, if not all lines are searched through
+#     # if (len(lines)>=4) and ('theme' in lines[3]):
+#     #     lines[3] = "theme = '"+themechoice+"'\n"
+#     # else:
+#     #     count = 0
+#     #     for i in lines:
+#     #         if 'theme' in i:
+#     #             lines[count] = "theme = '"+themechoice+"'\n"
+#     #         count += 1
 
-    # replace theme, title and description
-    lines[3] = "theme = '" + themechoice + "'\n"
-    lines[2] = "title = '" + title + "'\n"
+#     # replace theme, title and description
+#     lines[3] = "theme = '" + themechoice + "'\n"
+#     lines[2] = "title = '" + title + "'\n"
 
-    tomlfile = open("hugo.toml", "w")
-    tomlfile.writelines(lines)
-    tomlfile.close()
+#     tomlfile = open("hugo.toml", "w")
+#     tomlfile.writelines(lines)
+#     tomlfile.close()
 
 
 # run at the start of the program
-allthemes = getthemes()
-themeline, titleline, tomllines = opentoml()
+g_allthemes = getthemes()
+g_themeline, g_titleline, g_tomllines = opentoml()
 
 # run everytime a new site is generated
-newtitle = titleinput()
-themechoice = random.choice(allthemes)
-tomlwrite(themechoice, newtitle, themeline, titleline, tomllines)
+g_newtitle = titleinput()
+g_themechoice = random.choice(g_allthemes)
+tomlwrite(g_themechoice, g_newtitle, g_themeline, g_titleline, g_tomllines)
 hugoexecute()
