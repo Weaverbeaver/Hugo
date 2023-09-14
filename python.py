@@ -15,7 +15,7 @@ def getthemes():
 
 def opentoml():
     """function to open hugo.toml and find location of important entries"""
-    tomlfile = open("hugo.toml", "r")
+    tomlfile = open("hugo.toml", "r", encoding="utf-8")
     tomllines = tomlfile.readlines()
     tomlfile.close()
 
@@ -44,23 +44,21 @@ def titleinput():
 
 def gentext():
     """generate text from title"""
-    return
+    return NotImplemented
 
 
 def genimage():
     """gen image"""
-    return
+    return NotImplemented
 
 
 def tomlwrite(newtheme, newtitle, themeline, titleline, lines):
     """function to write to hugo file"""
     lines[themeline] = "theme = '" + newtheme + "'\n"
     lines[titleline] = "title = '" + newtitle + "'\n"
-
-    tomlfile = open("hugo.toml", "w")
+    tomlfile = open("hugo.toml", "w", encoding="utf-8")
     tomlfile.writelines(lines)
     tomlfile.close()
-
     return
 
 
