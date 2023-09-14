@@ -1,18 +1,16 @@
-#import things
+# import things
 import subprocess, sys, os, random
 
 
-# function to open themes folder and get list of themes
 def getthemes():
-
+    """function to open themes folder and get list of themes"""
     allthemes = os.listdir("themes/")
     print(allthemes)
     return allthemes
 
 
-# function to open hugo.toml and find location of important entries
 def opentoml():
-
+    """function to open hugo.toml and find location of important entries"""
     tomlfile = open("hugo.toml", "r")
     tomllines = tomlfile.readlines()
     tomlfile.close()
@@ -20,41 +18,40 @@ def opentoml():
     # go through each line of hugo.toml and remember which lines theme and title are
     count = 0
     for i in tomllines:
-        if 'theme' in i:
+        if "theme" in i:
             themeline = count
-        if 'title' in i:
+        if "title" in i:
             titleline = count
         count += 1
-    
+
     return themeline, titleline, tomllines
 
 
-# function to select a random theme (Not necessary?)
-#def randomtheme():
+# def randomtheme():
+#    """function to select a random theme (Not necessary?)"""
 #    return 0
 
 
-# input title
 def titleinput():
+    """input title"""
     title = "Weavsite"
     return title
 
 
-# generate text from title
 def gentext():
+    """generate text from title"""
     return
 
 
-# gen image
 def genimage():
+    """gen image"""
     return
 
 
-# function to write to hugo file
 def tomlwrite(newtheme, newtitle, themeline, titleline, lines):
-
-    lines[themeline] = "theme = '"+newtheme+"'\n"
-    lines[titleline] = "title = '"+newtitle+"'\n"
+    """function to write to hugo file"""
+    lines[themeline] = "theme = '" + newtheme + "'\n"
+    lines[titleline] = "title = '" + newtitle + "'\n"
 
     tomlfile = open("hugo.toml", "w")
     tomlfile.writelines(lines)
@@ -63,35 +60,36 @@ def tomlwrite(newtheme, newtitle, themeline, titleline, lines):
     return
 
 
-# execute hugo commandx, creating html+css in public folder
 def hugoexecute():
-
-    result = subprocess.run(["pwsh.exe", "-Command", "hugo"], shell=True, capture_output=True, text=True)
-    #output result
+    """execute hugo commandx, creating html+css in public folder"""
+    result = subprocess.run(
+        ["pwsh.exe", "-Command", "hugo"], shell=True, capture_output=True, text=True
+    )
+    # output result
     print(result.stdout)
     return
 
-# moves the generator contents to another folder
+
 def movewebfiles():
+    """moves the generator contents to another folder"""
     return
 
 
 ### old!!!!!!!!!! ###
-#function to generate the site, outputs into public folder
 def websitegen():
-
-    #list all themes in theme directory
+    """function to generate the site, outputs into public folder"""
+    # list all themes in theme directory
     allthemes = os.listdir("themes/")
     print(allthemes)
-    #pick random theme in folder
+    # pick random theme in folder
     themechoice = random.choice(allthemes)
-    print("Chosen theme = "+themechoice)
+    print("Chosen theme = " + themechoice)
 
-    #change theme in hugo.toml
+    # change theme in hugo.toml
     tomlfile = open("hugo.toml", "r")
     lines = tomlfile.readlines()
     tomlfile.close()
-    #theme will usually be stored in line 3, if not all lines are searched through
+    # theme will usually be stored in line 3, if not all lines are searched through
     # if (len(lines)>=4) and ('theme' in lines[3]):
     #     lines[3] = "theme = '"+themechoice+"'\n"
     # else:
@@ -101,16 +99,14 @@ def websitegen():
     #             lines[count] = "theme = '"+themechoice+"'\n"
     #         count += 1
 
-    #replace theme, title and description
-    lines[3] = "theme = '"+themechoice+"'\n"
-    lines[2] = "title = '"+title+"'\n"
-
-
-            
+    # replace theme, title and description
+    lines[3] = "theme = '" + themechoice + "'\n"
+    lines[2] = "title = '" + title + "'\n"
 
     tomlfile = open("hugo.toml", "w")
     tomlfile.writelines(lines)
     tomlfile.close()
+
 
 # run at the start of the program
 allthemes = getthemes()
