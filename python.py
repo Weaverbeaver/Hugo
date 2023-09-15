@@ -4,6 +4,7 @@ import subprocess, sys, os, random
 
 # function to open themes folder and get list of themes
 def getthemes():
+    ''' Gets the themes from the themes folder '''
 
     allthemes = os.listdir("themes/")
     print(allthemes)
@@ -12,6 +13,7 @@ def getthemes():
 
 # function to open hugo.toml and find location of important entries
 def opentoml():
+    ''' Opens hugo.toml and finds what vairables are on each line '''
 
     tomlfile = open("hugo.toml", "r")
     tomllines = tomlfile.readlines()
@@ -36,22 +38,26 @@ def opentoml():
 
 # input title
 def titleinput():
+    ''' Creates title for Website '''
     title = "Weavsite"
     return title
 
 
 # generate text from title
 def gentext():
+    ''' Generates text from ChatGPT '''
     return
 
 
 # gen image
 def genimage():
+    ''' Generates an image from ...'''
     return
 
 
 # function to write to hugo file
 def tomlwrite(newtheme, newtitle, themeline, titleline, lines):
+    ''' Replaces specific lines in hugo.toml with updated information '''
 
     lines[themeline] = "theme = '"+newtheme+"'\n"
     lines[titleline] = "title = '"+newtitle+"'\n"
@@ -65,6 +71,7 @@ def tomlwrite(newtheme, newtitle, themeline, titleline, lines):
 
 # execute hugo commandx, creating html+css in public folder
 def hugoexecute():
+    ''' Generates HTML and CSS files with Powershell 7'''
 
     result = subprocess.run(["pwsh.exe", "-Command", "hugo"], shell=True, capture_output=True, text=True)
     #output result
@@ -73,6 +80,7 @@ def hugoexecute():
 
 # moves the generator contents to another folder
 def movewebfiles():
+    ''' Moves web files '''
     return
 
 

@@ -4,3 +4,9 @@
 [submodule "themes/hello-friend"]
 	path = themes/hello-friend
 	url = https://github.com/panr/hugo-theme-hello-friend.git
+[submodule "themes/hugo.386"]
+	path = themes/hugo.386
+	url = https://gitlab.com/jmfergeau/hugo.386
+[submodule "hugo-tranquilpeak-theme"]
+	path = hugo-tranquilpeak-theme
+	url = https://github.com/kakawait/hugo-tranquilpeak-theme.git
