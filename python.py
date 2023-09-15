@@ -15,9 +15,8 @@ def getthemes():
 
 def opentoml():
     """function to open hugo.toml and find location of important entries"""
-    tomlfile = open("hugo.toml", "r", encoding="utf-8")
-    tomllines = tomlfile.readlines()
-    tomlfile.close()
+    with open("hugo.toml", "r", encoding="utf-8") as tomlfile:
+        tomllines = tomlfile.readlines()
 
     # go through each line of hugo.toml and remember which lines theme and title are
     count = 0
@@ -56,10 +55,9 @@ def tomlwrite(newtheme, newtitle, themeline, titleline, lines):
     """function to write to hugo file"""
     lines[themeline] = "theme = '" + newtheme + "'\n"
     lines[titleline] = "title = '" + newtitle + "'\n"
-    tomlfile = open("hugo.toml", "w", encoding="utf-8")
-    tomlfile.writelines(lines)
-    tomlfile.close()
-    return tomlfile
+    with open("hugo.toml", "w", encoding="utf-8") as tomlfile:
+        tomlfile.writelines(lines)
+        return tomlfile
 
 
 def hugoexecute():
