@@ -1,7 +1,34 @@
 """python modules needed"""
-from python import titleinput
+from website_generation import titleinput
+
+
+def test_getthemes():
+    pass
+
+
+def test_opentoml():
+    pass
 
 
 def test_titleinput():
     test_object = titleinput()
     assert test_object == "Weavsite"
+
+def test_gentext():
+    pass
+
+
+
+def test_genimage():
+    pass
+
+
+def test_tomlwrite(newtheme, newtitle, themeline, titleline, lines):
+    pass
+
+def test_hugoexecute():
+    pass
+
+
+def test_movewebfiles():
+    pass
