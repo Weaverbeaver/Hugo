@@ -23,7 +23,7 @@ def test_genimage():
     pass
 
 
-def test_tomlwrite(newtheme, newtitle, themeline, titleline, lines):
+def test_tomlwrite():
     pass
 
 def test_hugoexecute():

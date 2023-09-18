@@ -117,7 +117,7 @@ g_allthemes = getthemes()
 g_themeline, g_titleline, g_tomllines = opentoml()
 
 # run everytime a new site is generated
-g_newtitle = titleinput()
+G_NEWTITLE = titleinput()
 g_themechoice = random.choice(g_allthemes)
-tomlwrite(g_themechoice, g_newtitle, g_themeline, g_titleline, g_tomllines)
+tomlwrite(g_themechoice, G_NEWTITLE, g_themeline, g_titleline, g_tomllines)
 hugoexecute()
