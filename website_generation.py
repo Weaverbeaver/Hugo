@@ -37,8 +37,8 @@ def opentoml():
 
 def titleinput():
     """input title"""
-    title = "Weavsite"
-    return title
+    newtitle = random.choice(["Weavsite","Stevesite"])
+    return newtitle
 
 
 def gentext():
@@ -117,7 +117,7 @@ g_allthemes = getthemes()
 g_themeline, g_titleline, g_tomllines = opentoml()
 
 # run everytime a new site is generated
-G_NEWTITLE = titleinput()
+g_newtitle = titleinput()
 g_themechoice = random.choice(g_allthemes)
-tomlwrite(g_themechoice, G_NEWTITLE, g_themeline, g_titleline, g_tomllines)
+tomlwrite(g_themechoice, g_newtitle, g_themeline, g_titleline, g_tomllines)
 hugoexecute()
