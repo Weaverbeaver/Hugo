@@ -1,14 +1,14 @@
 baseURL = '/'
 languageCode = 'en-us'
 title = 'Weavsite'
-theme = 'hugo.386'
+theme = 'hugo-tranquilpeak-theme'
 
 [params]
     # The name to display as main title in the home page
     mainpagetitle = "PARAMS!!! TITLE"
 
     # The subtitle to display under the title in the home page
-    mainpagesubtitle = "PARAMS!!! SUBTITLE" 
+title = 'Stevesite'
 
     # The description of your website. It will be displayed in the home page
     description = "PARAMS!!! DESCRIPTION"
