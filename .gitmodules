@@ -19,3 +19,24 @@
 [submodule "themes/personal-web"]
 	path = themes/personal-web
 	url = https://github.com/bjacquemet/personal-web.git
+[submodule "themes/aafu"]
+	path = themes/aafu
+	url = https://github.com/darshanbaral/aafu.git
+[submodule "themes/themes/hugo-story"]
+	path = themes/themes/hugo-story
+	url = https://github.com/caressofsteel/hugo-story.git
+[submodule "themes/hugo-story"]
+	path = themes/hugo-story
+	url = https://github.com/caressofsteel/hugo-story.git
+[submodule "themes/hugo-theme-pico"]
+	path = themes/hugo-theme-pico
+	url = https://github.com/negrel/hugo-theme-pico.git
+[submodule "brutalist-minimalist-gohugo-theme"]
+	path = brutalist-minimalist-gohugo-theme
+	url = https://gitlab.com/m-e-leypold/brutalist-minimalist-gohugo-theme
+[submodule "themes/brutalist-minimalist-gohugo-theme"]
+	path = themes/brutalist-minimalist-gohugo-theme
+	url = https://gitlab.com/m-e-leypold/brutalist-minimalist-gohugo-theme
+[submodule "themes/adritian-free-hugo-theme"]
+	path = themes/adritian-free-hugo-theme
+	url = https://github.com/zetxek/adritian-free-hugo-theme.git
