@@ -1,4 +1,7 @@
 *__pycache__*
+.pytest_cache
 .vscode*
 GitHubAccessKey.txt
 public/*
+modules/__pycache__
+.hugo_build.lock
