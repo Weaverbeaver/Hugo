@@ -13,9 +13,6 @@
 [submodule "themes/hugo-tranquilpeak-theme"]
 	path = themes/hugo-tranquilpeak-theme
 	url = https://github.com/kakawait/hugo-tranquilpeak-theme.git
-[submodule "personal-web"]
-	path = personal-web
-	url = https://github.com/bjacquemet/personal-web.git
 [submodule "themes/personal-web"]
 	path = themes/personal-web
 	url = https://github.com/bjacquemet/personal-web.git
@@ -31,9 +28,6 @@
 [submodule "themes/hugo-theme-pico"]
 	path = themes/hugo-theme-pico
 	url = https://github.com/negrel/hugo-theme-pico.git
-[submodule "brutalist-minimalist-gohugo-theme"]
-	path = brutalist-minimalist-gohugo-theme
-	url = https://gitlab.com/m-e-leypold/brutalist-minimalist-gohugo-theme
 [submodule "themes/brutalist-minimalist-gohugo-theme"]
 	path = themes/brutalist-minimalist-gohugo-theme
 	url = https://gitlab.com/m-e-leypold/brutalist-minimalist-gohugo-theme
