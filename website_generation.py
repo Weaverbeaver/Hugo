@@ -1,6 +1,4 @@
 """import things"""
-import sys        
-sys.path.append('../modules')  
 from modules.scanfiles import tomlwrite, opentoml, getthemes
 from modules.generators import titleinput, gentext, genimage
 from modules.hugorun import hugoexecute, insertcontent, movewebfiles
