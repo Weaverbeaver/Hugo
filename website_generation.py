@@ -1,5 +1,6 @@
 """import things"""
-import random
+import sys        
+sys.path.append('../modules')  
 from modules.scanfiles import tomlwrite, opentoml, getthemes
 from modules.generators import titleinput, gentext, genimage
 from modules.hugorun import hugoexecute, insertcontent, movewebfiles
@@ -11,8 +12,10 @@ g_themeline, g_titleline, g_tomllines = opentoml()
 
 # run everytime a new site is generated
 g_newtitle = titleinput()
-g_newtext = gentext()
+G_NEWTEXT = gentext()
 #g_themechoice = random.choice(g_allthemes)
-insertcontent(g_newtitle, g_newtext)
+genimage()
+insertcontent(g_newtitle, G_NEWTEXT)
 tomlwrite("ananke", g_newtitle, g_themeline, g_titleline, g_tomllines)
 hugoexecute()
+movewebfiles()

@@ -19,21 +19,17 @@ def hugoexecute():
 
 def insertcontent(title, text):
     """insert content into content/_index.md including the title, description and image"""
-    f = open("content/_index.md","w")
-    md_insert = 1
-    print(md_insert)
-    f.write("""
----
+
+    with open("content/_index.md","w", encoding="utf-8") as md_insert:
+        md_insert.write("""---
 title: " """+title+""" "
 
 description: "Welcome"
 # 1. To ensure Netlify triggers a build on our exampleSite instance, we need to change a file in the exampleSite directory.
 theme_version: '2.8.2'
 ---
-"""+text+"""            
-            """)
-    f.close()
-    return md_insert
+"""+text)
+        return md_insert
 
 def movewebfiles():
     """moves the generator contents to another folder"""

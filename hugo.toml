@@ -1,4 +1,4 @@
 baseURL = '/'
 languageCode = 'en-us'
-title = 'Stevesite'
-theme = 'hugo-tranquilpeak-theme'
+title = 'Weavsite'
+theme = 'ananke'
