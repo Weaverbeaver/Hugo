@@ -9,7 +9,9 @@ def titleinput():
 
 def gentext():
     """generate text from title"""
-    return NotImplemented
+    description_text = "Welcome to my site, my favourite food is pasta"
+    return description_text
+
 
 
 def genimage():
