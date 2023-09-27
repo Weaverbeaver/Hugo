@@ -13,5 +13,5 @@ person = streamlit.text_input("Enter name of person")
 if person:
     company = generate_company()
     streamlit.write(company)
-    bio = generate_bio(person, company)
+    bio = generate_bio(person, "CIO", company)
     streamlit.write(bio)

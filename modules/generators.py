@@ -11,19 +11,21 @@ def generate_company():
     return newtitle
 
 
-def generate_bio(thiscompany, thisperson):
+def generate_bio(thisperson, thisrole, thiscompany):
     """generate text from title"""
     llms = OpenAI(temperature=0.9)
     bio_template = PromptTemplate(
-        input_variables=["thisperson", "thiscompany"],
+        input_variables=["thisperson", "thisrole", "thiscompany"],
         template=(
             "Write a biography about {thisperson}"
             "to go on the company website."
-            " {thisperson} is the CIO of {thiscompany}."
+            " {thisperson} is the {thisrole} of {thiscompany}."
         ),
     )
     bio_chain = LLMChain(llm=llms, prompt=bio_template)
-    bio = bio_chain.run({"thisperson": thisperson, "thiscompany": thiscompany})
+    bio = bio_chain.run(
+        {"thisperson": thisperson, "thisrole": thisrole, "thiscompany": thiscompany}
+    )
     return bio
 
 

@@ -10,7 +10,7 @@ def test_generate_company():
 
 def test_gen_bio():
     """Comment for pylint, replace when test has been written."""
-    test_gen_bio_obj = generate_bio("Test person", "Test company")
+    test_gen_bio_obj = generate_bio("Test person", "Test role", "Test company")
     assert isinstance(test_gen_bio_obj, str)
 
 
