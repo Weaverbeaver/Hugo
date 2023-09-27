@@ -1,10 +1,10 @@
 """python modules needed"""
-from modules.generators import titleinput, generate_bio, genimage
+from modules.generators import generate_company, generate_bio, genimage
 
 
-def test_titleinput():
+def test_generate_company():
     """tests if the title of the hugo.toml matches up with what it is suppose to be"""
-    test_titleinput_obj = titleinput()
+    test_titleinput_obj = generate_company()
     assert isinstance(test_titleinput_obj, str)
 
 
