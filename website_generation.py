@@ -1,8 +1,8 @@
 """import things"""
 import random
 from modules.scanfiles import tomlwrite, opentoml, getthemes
-from modules.generators import titleinput, gentext, genimage
-from modules.hugorun import hugoexecute, movewebfiles
+from modules.generators import titleinput  # , gentext, genimage
+from modules.hugorun import hugoexecute  # , movewebfiles
 
 # run at the start of the program
 g_allthemes = getthemes()
