@@ -3,6 +3,8 @@
 
 name: Python application
 
+env: OPENAI_API_KEY
+
 on:
   push:
     branches: ["main"]
