@@ -16,7 +16,11 @@ def generate_bio(thiscompany, thisperson):
     llms = OpenAI(temperature=0.9)
     bio_template = PromptTemplate(
         input_variables=["thisperson", "thiscompany"],
-        template="Write a biography about {thisperson} to go on the company website. {thisperson} is the CIO of {thiscompany}.",
+        template=(
+            "Write a biography about {thisperson}"
+            "to go on the company website."
+            " {thisperson} is the CIO of {thiscompany}."
+        ),
     )
     bio_chain = LLMChain(llm=llms, prompt=bio_template)
     bio = bio_chain.run({"thisperson": thisperson, "thiscompany": thiscompany})

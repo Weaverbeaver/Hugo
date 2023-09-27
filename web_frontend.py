@@ -1,7 +1,7 @@
 """Import all the modules"""
 import os
-from apikey import apikey
 import streamlit
+from apikey import apikey
 from modules.generators import generate_company, generate_bio
 
 os.environ["OPENAI_API_KEY"] = apikey
