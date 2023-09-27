@@ -16,6 +16,7 @@ def titleinput():
 
 def gentext(thiscompany):
     """generate text from title"""
+<<<<<<< HEAD
     llms = OpenAI(temperature=0.9)
     bio_template = PromptTemplate(
         input_variables=["thiscompany"],
@@ -24,6 +25,11 @@ def gentext(thiscompany):
     bio_chain = LLMChain(llm=llms, prompt=bio_template)
     bio = bio_chain.run(thiscompany)
     return bio
+=======
+    description_text = "Welcome to my site, my favourite food is pasta"
+    return description_text
+
+>>>>>>> 59c37a8081b1eb2bc72dbfb9c0a86799541bbad4
 
 
 def genimage():
