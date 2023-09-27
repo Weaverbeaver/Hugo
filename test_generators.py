@@ -1,5 +1,5 @@
 """python modules needed"""
-from modules.generators import titleinput, gentext, genimage
+from modules.generators import titleinput, generate_bio, genimage
 
 
 def test_titleinput():
@@ -8,10 +8,10 @@ def test_titleinput():
     assert isinstance(test_titleinput_obj, str)
 
 
-def test_gentext():
+def test_gen_bio():
     """Comment for pylint, replace when test has been written."""
-    test_gentext_obj = gentext("Test company")
-    assert isinstance(test_gentext_obj, str)
+    test_gen_bio_obj = generate_bio("Test company")
+    assert isinstance(test_gen_bio_obj, str)
 
 
 def test_genimage():

@@ -11,7 +11,7 @@ def titleinput():
     return newtitle
 
 
-def gentext(thiscompany):
+def generate_bio(thiscompany):
     """generate text from title"""
     llms = OpenAI(temperature=0.9)
     bio_template = PromptTemplate(
