@@ -1,11 +1,7 @@
 """module provides functions for taking a title inputand generating text and an image from this"""
-import os
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
-
-if "OPENAI_API_KEY" not in os.environ:
-    os.environ["OPENAI_API_KEY"] = "api-key for testing"
 
 
 def titleinput():
