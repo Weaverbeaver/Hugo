@@ -10,6 +10,7 @@ def test_hugoexecute():
     test_execute = hugoexecute()
     print(test_execute)
     assert os.path.exists("public\\index.html")
+    assert "error" not in test_execute.stdout
 
 
 def test_movewebfiles():
