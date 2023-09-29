@@ -1,8 +1,12 @@
 """module provides functions for taking a title inputand generating text and an image from this"""
 import random
+import os
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
+from langchain.agents import load_tools
+from langchain.agents import initialize_agent
+import openai
 from modules.website import Website
 
 
@@ -31,9 +35,22 @@ def generate_bio(thisperson, thisrole, thiscompany):
     return bio
 
 
-def generate_image():
-    """gen image"""
-    return NotImplemented
+def generate_image(thisperson, thisrole):
+    """generate an image with Dall-E and return the URL for download"""
+    openai.api_key = os.getenv("OPENAI_API_KEY")
+    image_prompt = (
+        "Create a photo of "
+        + thisperson
+        + ", who is the "
+        + thisrole
+        + " of a company to accompany their biography on the company website"
+    )
+    photo = openai.Image.create(
+        prompt=image_prompt,
+        n=1,
+        size="256x256",
+    )
+    return photo["data"][0]["url"]
 
 
 def generate_website(person, role, themes):
