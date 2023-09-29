@@ -17,6 +17,13 @@ def generate_company():
     return newtitle
 
 
+def generate_person(thisrole):
+    """generate a person's name"""
+    llms = OpenAI(temperature=0.9)
+    newtitle = llms("Write the name of a " + thisrole)
+    return newtitle
+
+
 def generate_bio(thisperson, thisrole, thiscompany):
     """generate text from title"""
     llms = OpenAI(temperature=0.9)

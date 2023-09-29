@@ -5,6 +5,7 @@ from urllib.request import urlretrieve
 from apikey import apikey
 from modules.generators import (
     generate_company,
+    generate_person,
     generate_bio,
     generate_image,
     generate_website,
@@ -27,6 +28,8 @@ if person:
     for x in range(1, sites + 1):
         company = generate_company()
         streamlit.write(company)
+        if x > 1:
+            person = generate_person(role)
         bio = generate_bio(person, role, company)
         streamlit.write(bio)
         biophoto = generate_image(person, role)
