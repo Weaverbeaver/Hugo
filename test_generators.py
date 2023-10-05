@@ -1,20 +1,24 @@
 """python modules needed"""
-from modules.scanfiles import tomlwrite, opentoml, getthemes
-from modules.generators import titleinput, gentext, genimage
-from modules.hugorun import hugoexecute, movewebfiles
+from modules.generators import generate_company, generate_bio, generate_image
 
 
-def test_titleinput():
-    """ tests if the title of the hugo.toml matches up with what it is suppose to be"""
-    test_titleinput_obj = titleinput()
-    assert isinstance(test_titleinput_obj, str)
+def test_generate_company():
+    """tests if the title of the hugo.toml matches up with what it is suppose to be"""
+    test_generate_company_obj = generate_company()
+    assert isinstance(test_generate_company_obj, str)
+    assert len(test_generate_company_obj) > 10
+    assert len(test_generate_company_obj) < 200
 
 
-def test_gentext():
-    """ Comment for pylint, replace when test has been written."""
-    test_gentext_obj = gentext()
-    assert isinstance(test_gentext_obj, str)
+def test_gen_bio():
+    """Tests that the bio is text of between 200 and 2000 characters."""
+    test_gen_bio_obj = generate_bio("Test person", "Test role", "Test company")
+    assert isinstance(test_gen_bio_obj, str)
+    assert len(test_gen_bio_obj) > 200
+    assert len(test_gen_bio_obj) < 2000
 
 
-def test_genimage():
-    """ Comment for pylint, replace when test has been written."""
+def test_gen_image():
+    """Comment for pylint, replace when test has been written."""
+    genimage_output = generate_image()
+    assert genimage_output == NotImplemented

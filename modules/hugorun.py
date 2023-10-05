@@ -2,6 +2,7 @@
    different folders"""
 import subprocess
 
+
 def hugoexecute():
     """execute hugo commandx, creating html+css in public folder"""
     result = subprocess.run(
@@ -18,4 +19,9 @@ def hugoexecute():
 
 def movewebfiles():
     """moves the generator contents to another folder"""
+    return NotImplemented
+
+
+def zip_web():
+    """Zips up the files in the web content folder"""
     return NotImplemented

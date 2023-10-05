@@ -1,7 +1,16 @@
-*__pycache__*
+# Python cache files
+__pycache__*
+**/__pycache__/**
+**/*.pyc
 .pytest_cache
+
+# VScode config
 .vscode*
+
+# Secrets
 GitHubAccessKey.txt
-public/*
-modules/__pycache__
+apikey.py
+
+# Hugo output
+public/
 .hugo_build.lock
