@@ -12,7 +12,7 @@ from modules.generators import (
 )
 from modules.scanfiles import get_themes
 
-# from modules.hugorun import hugoexecute, zip_web
+from modules.hugorun import hugoexecute, zip_web
 
 os.environ["OPENAI_API_KEY"] = apikey
 
@@ -42,7 +42,7 @@ if person:
             channels="RGB",
             output_format="auto",
         )
-        urlretrieve(biophoto, "public/bio.png")
         generate_website(person=person, role=role, themes=all_themes)
-        # hugoexecute()
-        # zip_web()
+        hugoexecute()
+        urlretrieve(biophoto, "public/bio.png")
+        #zip_web()
