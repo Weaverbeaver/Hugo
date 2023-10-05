@@ -1,30 +1,3 @@
 [submodule "themes/ananke"]
 	path = themes/ananke
 	url = https://github.com/theNewDynamic/gohugo-theme-ananke.git
-[submodule "themes/hello-friend"]
-	path = themes/hello-friend
-	url = https://github.com/panr/hugo-theme-hello-friend.git
-[submodule "themes/hugo.386"]
-	path = themes/hugo.386
-	url = https://gitlab.com/jmfergeau/hugo.386
-[submodule "hugo-tranquilpeak-theme"]
-	path = hugo-tranquilpeak-theme
-	url = https://github.com/kakawait/hugo-tranquilpeak-theme.git
-[submodule "themes/personal-web"]
-	path = themes/personal-web
-	url = https://github.com/bjacquemet/personal-web.git
-[submodule "themes/aafu"]
-	path = themes/aafu
-	url = https://github.com/darshanbaral/aafu.git
-[submodule "themes/hugo-story"]
-	path = themes/hugo-story
-	url = https://github.com/caressofsteel/hugo-story.git
-[submodule "themes/hugo-theme-pico"]
-	path = themes/hugo-theme-pico
-	url = https://github.com/negrel/hugo-theme-pico.git
-[submodule "themes/brutalist-minimalist-gohugo-theme"]
-	path = themes/brutalist-minimalist-gohugo-theme
-	url = https://gitlab.com/m-e-leypold/brutalist-minimalist-gohugo-theme
-[submodule "themes/adritian-free-hugo-theme"]
-	path = themes/adritian-free-hugo-theme
-	url = https://github.com/zetxek/adritian-free-hugo-theme.git
