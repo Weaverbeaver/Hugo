@@ -9,7 +9,8 @@ def titleinput():
 
 def gentext():
     """generate text from title"""
-    return NotImplemented
+    description = "description"
+    return description
 
 
 def genimage():
