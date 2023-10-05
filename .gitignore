@@ -13,5 +13,6 @@ apikey.py
 
 # Hugo output
 public/
+resources/
 .hugo_build.lock
 generated_pages/
