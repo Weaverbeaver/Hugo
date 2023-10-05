@@ -20,7 +20,7 @@ def generate_company():
 def generate_person(thisrole):
     """generate a person's name"""
     llms = OpenAI(temperature=0.9)
-    newtitle = llms("Write the name of a " + thisrole)
+    newtitle = (llms("Write the name of a " + thisrole)).replace("\n","")
     return newtitle
 
 
