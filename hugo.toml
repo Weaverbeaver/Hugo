@@ -1,4 +1,20 @@
 baseURL = '/'
 languageCode = 'en-us'
+title = 'Weavsite'
+theme = 'ananke'
+description = 'description'
+
+[params]
+    # The name to display as main title in the home page
+    mainpagetitle = "PARAMS!!! TITLE"
+
+    # The subtitle to display under the title in the home page
 title = 'Stevesite'
-theme = 'hugo-tranquilpeak-theme'
+
+    # The description of your website. It will be displayed in the home page
+    description = "PARAMS!!! DESCRIPTION"
+
+[author]
+    name = "AUTHOR!!! NAME"
+    bio = "AUTHOR!!! BIO"
+    picture = "https://ichef.bbci.co.uk/images/ic/1200x675/p01l7900.jpg"
