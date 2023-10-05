@@ -1,6 +1,8 @@
 """module provides functions for executing hugo and moving generated web files to
    different folders"""
 import subprocess
+import shutil
+import os
 
 
 def hugoexecute():
@@ -17,11 +19,10 @@ def hugoexecute():
     return result
 
 
-def movewebfiles():
-    """moves the generator contents to another folder"""
-    return NotImplemented
-
-
-def zip_web():
+def zip_web(person_name):
     """Zips up the files in the web content folder"""
-    return NotImplemented
+    zip_name = person_name.replace(" ","")
+    if os.path.exists('generated_pages') == False:
+        os.mkdir('generated_pages')
+    shutil.make_archive("generated_pages/"+zip_name, format='zip', root_dir='public')
+    return "ok"

@@ -45,4 +45,4 @@ if person:
         generate_website(person=person, role=role, themes=all_themes)
         hugoexecute()
         urlretrieve(biophoto, "public/bio.png")
-        #zip_web()
+        zip_web(person)
