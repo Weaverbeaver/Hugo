@@ -8,6 +8,7 @@ from langchain.agents import load_tools
 from langchain.agents import initialize_agent
 import openai
 from modules.website import Website
+from modules.hugorun import insert_content
 
 
 def generate_company():
@@ -66,11 +67,13 @@ def generate_website(person, role, themes):
     this_website = Website()
     this_website.read_toml()
     this_website.update_title(generate_company())
-    this_website.update_description(
-        generate_bio(
-            thisperson=person, thisrole=role, thiscompany=this_website.toml["title"]
-        )
-    )
+    #this_website.update_description(
+    #    generate_bio(
+    #        thisperson=person, thisrole=role, thiscompany=this_website.toml["title"]
+    #    )
+    #)
+    description = generate_bio(thisperson=person, thisrole=role, thiscompany=this_website.toml["title"])
+    insert_content(person,description,role)
     #this_website.update_theme(random.choice(themes))
     this_website.update_theme("ananke")
     this_website.write_toml()
