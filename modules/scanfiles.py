@@ -27,7 +27,7 @@ def opentoml():
     return themeline, titleline, tomllines
 
 
-def getthemes():
+def get_themes():
     """function to open themes folder and get list of themes"""
     allthemes = os.listdir("themes/")
     print(allthemes)
