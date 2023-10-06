@@ -15,4 +15,4 @@ def test_hugoexecute():
 
 def test_movewebfiles():
     """Comment for pylint, replace when test has been written."""
-    return NotImplemented
+    assert NotImplemented

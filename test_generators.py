@@ -20,5 +20,5 @@ def test_gen_bio():
 
 def test_gen_image():
     """Comment for pylint, replace when test has been written."""
-    genimage_output = generate_image()
+    genimage_output = generate_image("Joe","CEO")
     assert genimage_output == NotImplemented

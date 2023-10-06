@@ -37,7 +37,7 @@ theme_version: '2.8.2'
 def zip_web(person_name):
     """Zips up the files in the web content folder"""
     zip_name = (person_name.replace(" ","")).replace(".","")
-    if os.path.exists('generated_pages') == False:
+    if os.path.exists('generated_pages') is False:
         os.mkdir('generated_pages')
     shutil.make_archive("generated_pages/"+zip_name, format='zip', root_dir='public')
     return "ok"

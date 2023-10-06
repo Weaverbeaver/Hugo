@@ -4,8 +4,7 @@ import os
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
-from langchain.agents import load_tools
-from langchain.agents import initialize_agent
+#from langchain.agents import load_tools, initialize_agent
 import openai
 from modules.website import Website
 from modules.hugorun import insert_content
@@ -67,14 +66,12 @@ def generate_website(person, role, themes):
     this_website = Website()
     this_website.read_toml()
     this_website.update_title(generate_company())
-    #this_website.update_description(
-    #    generate_bio(
-    #        thisperson=person, thisrole=role, thiscompany=this_website.toml["title"]
-    #    )
-    #)
-    description = generate_bio(thisperson=person, thisrole=role, thiscompany=this_website.toml["title"])
+    description = generate_bio(
+        thisperson=person, thisrole=role, thiscompany=this_website.toml["title"]
+        )
     insert_content(person,description,role)
     #this_website.update_theme(random.choice(themes))
+    print(random.choice(themes))
     this_website.update_theme("ananke")
     this_website.write_toml()
     return this_website

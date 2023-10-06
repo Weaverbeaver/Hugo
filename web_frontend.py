@@ -1,8 +1,8 @@
 """Import all the modules"""
 import os
-import streamlit
 from urllib.request import urlretrieve
-from apikey import apikey
+import streamlit
+from apikey import APIKEY
 from modules.generators import (
     generate_company,
     generate_person,
@@ -11,10 +11,9 @@ from modules.generators import (
     generate_website,
 )
 from modules.scanfiles import get_themes
-
 from modules.hugorun import hugoexecute, zip_web
 
-os.environ["OPENAI_API_KEY"] = apikey
+os.environ["OPENAI_API_KEY"] = APIKEY
 
 # Create application
 streamlit.title("Website generator")

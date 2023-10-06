@@ -1,13 +1,11 @@
 """python modules needed"""
-from modules.scanfiles import tomlwrite, opentoml, getthemes
-from modules.generators import titleinput, gentext, genimage
-from modules.hugorun import hugoexecute, movewebfiles
+from modules.scanfiles import opentoml, get_themes#, tomlwrite
 
 def test_getthemes():
     """ tests if the themes have been retrieved """
-    test_getthemes_obj = getthemes()
+    test_getthemes_obj = get_themes()
     assert isinstance(test_getthemes_obj, list)
-    assert (len(test_getthemes_obj) >= 1)
+    assert len(test_getthemes_obj) >= 1
 
 
 def test_opentoml():
@@ -16,6 +14,6 @@ def test_opentoml():
     assert isinstance(test_opentoml_obj[0], int)
     assert isinstance(test_opentoml_obj[1], int)
 
-def test_tomlwrite():
-    """Comment for pylint, replace when test has been written."""
-    return NotImplemented
+#def test_tomlwrite():
+#    """Comment for pylint, replace when test has been written."""
+#    return NotImplemented
