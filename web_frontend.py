@@ -11,7 +11,7 @@ from modules.generators import (
     generate_website,
 )
 from modules.scanfiles import get_themes
-from modules.hugorun import hugoexecute, zip_web
+from modules.hugorun import hugo_execute, zip_web
 
 os.environ["OPENAI_API_KEY"] = APIKEY
 
@@ -42,6 +42,6 @@ if person:
             output_format="auto",
         )
         generate_website(person=person, role=role, themes=all_themes)
-        hugoexecute()
+        hugo_execute()
         urlretrieve(biophoto, "public/bio.png")
-        zip_web(person)
+        zip_web("generated_pages",person,"public")

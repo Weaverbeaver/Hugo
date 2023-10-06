@@ -5,7 +5,7 @@ import shutil
 import os
 
 
-def hugoexecute():
+def hugo_execute():
     """execute hugo commandx, creating html+css in public folder"""
     result = subprocess.run(
         ["pwsh.exe", "-Command", "hugo"],
@@ -19,25 +19,27 @@ def hugoexecute():
     return result
 
 
-def insert_content(name,text,title):
+def insert_index(name,text,title,index_path):
     """insert content into content/_index.md including the title, description and image"""
-
-    with open("content/_index.md","w", encoding="utf-8") as md_insert:
+    if not os.path.exists(index_path):
+        os.mkdir(index_path)
+    with open(index_path+"/_index.md","w", encoding="utf-8") as md_insert:
         md_insert.write("""---
 title: " """+name+""" "
 
 description: " """+title+""" "
-# 1. To ensure Netlify triggers a build on our exampleSite instance, we need to change a file in the exampleSite directory.
+
 theme_version: '2.8.2'
 ---
+{{< figure src=\"bio.png\" >}}
 """+text)
         return md_insert
 
 
-def zip_web(person_name):
+def zip_web(location,name,root):
     """Zips up the files in the web content folder"""
-    zip_name = (person_name.replace(" ","")).replace(".","")
-    if os.path.exists('generated_pages') is False:
-        os.mkdir('generated_pages')
-    shutil.make_archive("generated_pages/"+zip_name, format='zip', root_dir='public')
-    return "ok"
+    name_formatted = (name.replace(" ","")).replace(".","")
+    if os.path.exists(location) is False:
+        os.mkdir(location)
+    zipped = shutil.make_archive(location+"/"+name_formatted, format='zip', root_dir=root)
+    return zipped

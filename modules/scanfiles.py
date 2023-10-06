@@ -1,7 +1,9 @@
 """module provides functions to open/edit files necessary for hugo"""
 import os
 
-def tomlwrite(newtheme, newtitle, themeline, titleline, lines):
+
+# unused
+def toml_write(newtheme, newtitle, themeline, titleline, lines):
     """function to write to hugo file"""
     lines[themeline] = "theme = '" + newtheme + "'\n"
     lines[titleline] = "title = '" + newtitle + "'\n"
@@ -10,7 +12,8 @@ def tomlwrite(newtheme, newtitle, themeline, titleline, lines):
         return tomlfile
 
 
-def opentoml():
+# unused
+def open_toml():
     """function to open hugo.toml and find location of important entries"""
     with open("hugo.toml", "r", encoding="utf-8") as tomlfile:
         tomllines = tomlfile.readlines()

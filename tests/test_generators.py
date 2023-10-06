@@ -1,5 +1,10 @@
 """python modules needed"""
+import os
+from urllib.request import urlretrieve
 from modules.generators import generate_company, generate_bio, generate_image
+from apikey import APIKEY
+
+os.environ["OPENAI_API_KEY"] = APIKEY
 
 
 def test_generate_company():
@@ -18,7 +23,10 @@ def test_gen_bio():
     assert len(test_gen_bio_obj) < 2000
 
 
-def test_gen_image():
-    """Comment for pylint, replace when test has been written."""
-    genimage_output = generate_image("Joe","CEO")
-    assert genimage_output == NotImplemented
+def test_gen_image(tmp_path):
+    """Testing that bio.png is created and is larger than 100KB"""
+    biophoto = generate_image("Joe","CEO")
+    print(tmp_path)
+    urlretrieve(biophoto, str(tmp_path)+"\\bio.png")
+    assert os.path.isfile(str(tmp_path)+"\\bio.png")
+    assert os.path.getsize(str(tmp_path)+"\\bio.png") > 100000

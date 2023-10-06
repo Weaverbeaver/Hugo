@@ -7,7 +7,7 @@ from langchain.chains import LLMChain
 #from langchain.agents import load_tools, initialize_agent
 import openai
 from modules.website import Website
-from modules.hugorun import insert_content
+from modules.hugorun import insert_index
 
 
 def generate_company():
@@ -33,6 +33,7 @@ def generate_bio(thisperson, thisrole, thiscompany):
             "Write a biography about {thisperson}"
             "to go on the company website."
             " {thisperson} is the {thisrole} of {thiscompany}."
+            "Maximum 1300 characters."
         ),
     )
     bio_chain = LLMChain(llm=llms, prompt=bio_template)
@@ -69,7 +70,7 @@ def generate_website(person, role, themes):
     description = generate_bio(
         thisperson=person, thisrole=role, thiscompany=this_website.toml["title"]
         )
-    insert_content(person,description,role)
+    insert_index(person,description,role,"content")
     #this_website.update_theme(random.choice(themes))
     print(random.choice(themes))
     this_website.update_theme("ananke")
