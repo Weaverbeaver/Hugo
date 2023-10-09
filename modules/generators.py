@@ -33,13 +33,14 @@ def generate_bio(thisperson, thisrole, thiscompany):
             "Write a biography about {thisperson}"
             "to go on the company website."
             " {thisperson} is the {thisrole} of {thiscompany}."
-            "Maximum 1300 characters."
+            "Maximum 1130 characters."
         ),
     )
     bio_chain = LLMChain(llm=llms, prompt=bio_template)
     bio = bio_chain.run(
         {"thisperson": thisperson, "thisrole": thisrole, "thiscompany": thiscompany}
     )
+    print(bio)
     return bio
 
 
