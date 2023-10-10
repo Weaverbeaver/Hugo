@@ -54,9 +54,7 @@ jobs:
           # For maximum backward compatibility with Hugo modules
           HUGO_ENVIRONMENT: production
           HUGO_ENV: production
-        run: python website_generation.py
-          hugo \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"
+        run: python -m streamlit run web_frontend.py
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
