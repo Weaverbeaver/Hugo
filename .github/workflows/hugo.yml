@@ -58,7 +58,7 @@ jobs:
           HUGO_ENV: production
         run: | 
           sudo pip install -r requirements.txt
-          python -m streamlit run web_frontend.py
+          hugo 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
