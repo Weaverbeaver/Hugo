@@ -94,3 +94,4 @@
 [submodule "themes/someparts-hugo"]
 	path = themes/someparts-hugo
 	url = https://github.com/tastaturtier/someparts-hugo.git
+	
