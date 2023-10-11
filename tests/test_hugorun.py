@@ -7,8 +7,9 @@ def test_hugo_execute():
     """Test if hugo has generated correct html and css files in public"""
     test_execute = hugo_execute()
     print(test_execute)
-    assert os.path.exists("public/index.html")
     assert "error" not in test_execute.stdout
+    assert os.path.exists("public/index.html")
+
 
 
 def test_insert_index(tmp_path):
