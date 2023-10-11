@@ -72,8 +72,7 @@ def generate_website(person, role, themes):
         thisperson=person, thisrole=role, thiscompany=this_website.toml["title"]
         )
     insert_index(person,description,role,"content")
-    #this_website.update_theme(random.choice(themes))
-    print(random.choice(themes))
-    this_website.update_theme("ananke")
+    this_website.update_theme(random.choice(themes))
+    print(this_website)
     this_website.write_toml()
     return this_website

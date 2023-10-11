@@ -1,15 +1,5 @@
 baseURL = "/"
 languageCode = "en-us"
-title = "\n\nLuxury Ventures Ltd"
-theme = "ananke"
+title = "EDGE Innovations"
+theme = "hugo-whisper-theme"
 description = "description"
-
-[params]
-mainpagetitle = "PARAMS!!! TITLE"
-title = "Stevesite"
-description = "PARAMS!!! DESCRIPTION"
-
-[author]
-name = "AUTHOR!!! NAME"
-bio = "AUTHOR!!! BIO"
-picture = "https://ichef.bbci.co.uk/images/ic/1200x675/p01l7900.jpg"
