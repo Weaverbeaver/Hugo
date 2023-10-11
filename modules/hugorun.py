@@ -8,7 +8,7 @@ import os
 def hugo_execute():
     """execute hugo commandx, creating html+css in public folder"""
     result = subprocess.run(
-        ["pwsh.exe", "-Command", "hugo"],
+        "hugo",
         shell=True,
         capture_output=True,
         text=True,
