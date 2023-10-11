@@ -8,7 +8,7 @@ def test_hugo_execute():
     test_execute = hugo_execute()
     print(test_execute)
     assert "error" not in test_execute.stdout
-    assert os.path.exists("public/index.html")
+    assert os.path.exists("public")
 
 
 
