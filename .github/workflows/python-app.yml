@@ -7,8 +7,8 @@ on:
   push:
     branches: ["main"]
 
-permissions: write-all
-#  contents: read
+permissions:
+  contents: read
 
 defaults:
   run:
@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          submodules: recursive
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
         with:
