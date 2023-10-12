@@ -24,7 +24,7 @@ def generate_person(thisrole):
     return newtitle
 
 
-def generate_bio(thisperson, thisrole, thiscompany):
+def generate_bio(thisperson, thiscompany, thisrole):
     """generate text from title"""
     llms = OpenAI(temperature=0.9)
     bio_template = PromptTemplate(
@@ -33,7 +33,7 @@ def generate_bio(thisperson, thisrole, thiscompany):
             "Write a biography about {thisperson}"
             "to go on the company website."
             " {thisperson} is the {thisrole} of {thiscompany}."
-            "Maximum 1130 characters."
+            "Maximum 500 characters."
         ),
     )
     bio_chain = LLMChain(llm=llms, prompt=bio_template)
@@ -76,3 +76,42 @@ def generate_website(person, role, themes):
     print(this_website)
     this_website.write_toml()
     return this_website
+
+def generate_company_people(amount,field):
+    """generate a company name, tagline and description, along with a specified number of names"""
+    llms = OpenAI(temperature=0.9)
+    if field == "any":
+        response = llms("Write a list separated by semi-colons of a company name,"\
+                        "a tagline for the company, " + str(amount) + \
+                        " full names, and a 250 word description of the company.")
+    else:
+        response = llms("Write a list separated by semi-colons of a " + field + \
+                        " company name, a tagline for the company, "\
+                         + str(amount) + " full names, and a 250 word description of the company.")
+
+    response = (response.replace("; ",";")).replace('"',"")
+    formatted = response.split(";")
+
+    count = 0
+    for i in formatted:
+        if ":" in i:
+            formatted[count] = formatted[count][formatted[count].find(":")+2:]
+        if i[:2] == "\n\n":
+            formatted[count] = formatted[count][2:]
+        count += 1
+
+    return formatted
+
+def generate_bios(people, company):
+    """generate a bio for each person input"""
+    people = [j.strip(" 123456789.") for j in people]
+    person_array = [ [0]*2 for i in people]
+    loop = 0
+    llms = OpenAI(temperature=0.9)
+    for i in people:
+        response = llms("Write a biography about " + i + " to go on the company website. " + i + \
+                        " works at " + company + ".Maximum 300 characters.")
+        person_array[loop][0] = i
+        person_array[loop][1] = response.replace("\n","")
+        loop += 1
+    return person_array

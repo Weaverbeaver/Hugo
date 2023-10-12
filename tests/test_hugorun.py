@@ -15,7 +15,7 @@ def test_hugo_execute():
 def test_insert_index(tmp_path):
     """Tests that insert_index can create an index file in the content folder"""
     print(str(tmp_path)+"/content")
-    insert_index("Joe","Good man","CEO",str(tmp_path)+"/content")
+    insert_index("Joe","Good man","CEO",str(tmp_path)+"/content","_index.md","main")
     assert os.path.isfile(str(tmp_path)+"/content/_index.md")
     with open(str(tmp_path)+"/content/_index.md", 'r', encoding="utf-8") as index:
         assert index.readline() == "---\n"

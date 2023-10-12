@@ -19,22 +19,24 @@ def hugo_execute():
     return result
 
 
-def insert_index(name,text,title,index_path):
+def insert_index(title,body,description,path,filename,type):
     """insert content into content/_index.md including the title, description and image"""
-    if not os.path.exists(index_path):
-        os.mkdir(index_path)
-    with open(index_path+"/_index.md","w", encoding="utf-8") as md_insert:
+    if not os.path.exists(path):
+        os.makedirs(path)
+    ins = ""
+    if type == "sub":
+        ins = "type: page \nmenu: main"
+    with open(path + "/" + filename,"w", encoding="utf-8") as md_insert:
         md_insert.write("""---
-title: " """+name+""" "
-
-description: " """+title+""" "
-
+title: " """+title+""" "
+description: " """+description+""" "
 theme_version: '2.8.2'
+"""+ins+"""
 ---
-{{< figure src=\"bio.png\" >}}
-"""+text)
+"""+body)
         return md_insert
 
+#{{< figure src=\"bio.png\" >}}
 
 def zip_web(location,name,root):
     """Zips up the files in the web content folder"""
