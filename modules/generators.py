@@ -71,7 +71,7 @@ def generate_website(person, role, themes):
     description = generate_bio(
         thisperson=person, thisrole=role, thiscompany=this_website.toml["title"]
         )
-    insert_index(person,description,role,"content")
+    insert_index(person,description,"content","_index.py","main")
     this_website.update_theme(random.choice(themes))
     print(this_website)
     this_website.write_toml()
@@ -92,13 +92,12 @@ def generate_company_people(amount,field):
     response = (response.replace("; ",";")).replace('"',"")
     formatted = response.split(";")
 
-    count = 0
-    for i in formatted:
-        if ":" in i:
-            formatted[count] = formatted[count][formatted[count].find(":")+2:]
-        if i[:2] == "\n\n":
-            formatted[count] = formatted[count][2:]
-        count += 1
+
+    for i in enumerate(formatted):
+        if ":" in formatted[i[0]]:
+            formatted[i[0]] = formatted[i[0]][formatted[i[0]].find(":")+2:]
+        if formatted[i[0]][:2] == "\n\n":
+            formatted[i[0]] = formatted[i[0]][2:]
 
     return formatted
 

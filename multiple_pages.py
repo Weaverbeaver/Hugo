@@ -16,9 +16,9 @@ for i in enumerate(people_desc):
     people_desc[i[0]][1] = people_desc[i[0]][1] + "\n"
 TEAMTEXT = '\n\n'.join(str(item) for innerlist in people_desc for item in innerlist)
 
-insert_index(company_gen[0],company_gen[1],"","content","_index.md","main")
-insert_index("About",company_gen[-1],"","content","about.md","sub")
-insert_index("The Team",TEAMTEXT,"","content","team.md","sub")
+insert_index(company_gen[0],company_gen[1],"content","_index.md","main")
+insert_index("About",company_gen[-1],"content","about.md","sub")
+insert_index("The Team",TEAMTEXT,"content","team.md","sub")
 
 this_website = Website()
 this_website.read_toml()

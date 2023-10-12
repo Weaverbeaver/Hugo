@@ -19,17 +19,17 @@ def hugo_execute():
     return result
 
 
-def insert_index(title,body,description,path,filename,type):
+def insert_index(title,body,path,filename,pagetype):
     """insert content into content/_index.md including the title, description and image"""
     if not os.path.exists(path):
         os.makedirs(path)
     ins = ""
-    if type == "sub":
+    if pagetype == "sub":
         ins = "type: page \nmenu: main"
     with open(path + "/" + filename,"w", encoding="utf-8") as md_insert:
         md_insert.write("""---
 title: " """+title+""" "
-description: " """+description+""" "
+description: "  "
 theme_version: '2.8.2'
 """+ins+"""
 ---
