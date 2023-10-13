@@ -1,12 +1,18 @@
-"""module provides functions for executing hugo and moving generated web files to
-   different folders"""
+"""module provides high level functions for creating websites with hugo"""
 import subprocess
-import shutil
 import os
+import random
+import shutil
+from urllib.request import urlretrieve
+from modules.generators import generate_image, generate_company, generate_bio
+from modules.website import Website
+from modules.scanfiles import insert_index
 
 
 def hugo_execute():
     """execute hugo commandx, creating html+css in public folder"""
+    if os.path.exists("public/"):
+        shutil.rmtree("public/")
     result = subprocess.run(
         "hugo",
         shell=True,
@@ -19,29 +25,40 @@ def hugo_execute():
     return result
 
 
-def insert_index(title,body,path,filename,pagetype):
-    """insert content into content/_index.md including the title, description and image"""
-    if not os.path.exists(path):
-        os.makedirs(path)
-    ins = ""
-    if pagetype == "sub":
-        ins = "type: page \nmenu: main"
-    with open(path + "/" + filename,"w", encoding="utf-8") as md_insert:
-        md_insert.write("""---
-title: " """+title+""" "
-description: "  "
-theme_version: '2.8.2'
-"""+ins+"""
----
-"""+body)
-        return md_insert
+def team_page_build(people_desc, gen_images_bool):
+    """Concatenate all people into 1 page. People names are bolded."""
+    if os.path.exists("static/"):
+        shutil.rmtree("static/")
+    os.makedirs("static/images/")
+    if gen_images_bool is True:
+        for i in enumerate(people_desc):
+            name_nospace = people_desc[i[0]][0].replace(' ',"")
+            biophoto = generate_image(str(people_desc[i[0]][0]),"any")
+            urlretrieve(biophoto, "static/images/" + name_nospace + ".png")
+            people_desc[i[0]][0] = "**" + people_desc[i[0]][0] + "**"
+            people_desc[i[0]][1] = "![" + name_nospace + "](/images/" + \
+            name_nospace + ".png) \n\n" + people_desc[i[0]][1] + "\n"
+        team_text = '\n\n'.join(str(item) for innerlist in people_desc for item in innerlist)
+    else:
+        for i in enumerate(people_desc):
+            people_desc[i[0]][0] = "**" + people_desc[i[0]][0] + "**"
+            people_desc[i[0]][1] = people_desc[i[0]][1] + "\n"
+        team_text = '\n\n'.join(str(item) for innerlist in people_desc for item in innerlist)
 
-#{{< figure src=\"bio.png\" >}}
+    return team_text
 
-def zip_web(location,name,root):
-    """Zips up the files in the web content folder"""
-    name_formatted = (name.replace(" ","")).replace(".","")
-    if os.path.exists(location) is False:
-        os.mkdir(location)
-    zipped = shutil.make_archive(location+"/"+name_formatted, format='zip', root_dir=root)
-    return zipped
+
+def create_website(person, role, themes):
+    """Generates a company name for the person and role.
+    Returns a website class instance"""
+    this_website = Website()
+    this_website.read_toml()
+    this_website.update_title(generate_company())
+    description = generate_bio(
+        thisperson=person, thisrole=role, thiscompany=this_website.toml["title"]
+        )
+    insert_index(person,description,"content","_index.md","main")
+    this_website.update_theme(random.choice(themes))
+    print(this_website)
+    this_website.write_toml()
+    return this_website

@@ -1,5 +1,6 @@
 """python modules needed"""
-from modules.scanfiles import get_themes#, toml_write, open_toml
+import os
+from modules.scanfiles import get_themes, insert_index, zip_web
 
 def test_getthemes():
     """ Tests if the themes have been retrieved """
@@ -8,14 +9,19 @@ def test_getthemes():
     assert len(test_getthemes_obj) >= 1
 
 
-# unused function
-#def test_open_toml():
-#    """ tests if important entries have been retrieved from hugo.toml """
-#    test_opentoml_obj = open_toml()
-#    assert isinstance(test_opentoml_obj[0], int)
-#    assert isinstance(test_opentoml_obj[1], int)
+def test_insert_index(tmp_path):
+    """Tests that insert_index can create an index file in the content folder"""
+    print(str(tmp_path)+"/content")
+    insert_index("Joe","Good man",str(tmp_path)+"/content","_index.md","main")
+    assert os.path.isfile(str(tmp_path)+"/content/_index.md")
+    with open(str(tmp_path)+"/content/_index.md", 'r', encoding="utf-8") as index:
+        assert index.readline() == "---\n"
 
-# unused function
-#def test_toml_write():
-#    """Comment for pylint, replace when test has been written."""
-#    return NotImplemented
+
+def test_zip_web(tmp_path):
+    """Tests that the zip_web function can zip files"""
+    os.mkdir(str(tmp_path)+"/tester")
+    with open(str(tmp_path)+"/tester/tester.txt", 'w', encoding="utf-8"):
+        print(str(tmp_path)+"/tester.txt")
+    zip_web(str(tmp_path),"testarchive",str(tmp_path)+"/tester/")
+    assert os.path.isfile(str(tmp_path)+"/testarchive.zip")
