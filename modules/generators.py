@@ -128,27 +128,22 @@ def generate_bios(people, company):
     return person_array
 
 
-def generate_unit_name(unit_name):
-    """input title"""
-    llms = OpenAI(temperature=0.9)
-    newtitle = llms("Write a name for a " + unit_name + " unit in the military")
-    return newtitle
-
 def generate_unit_type():
     """generate unit type"""
     unit_name = random.choice(["Signals", "Logistics", "Infantry", "Engineers", "Intelligence"])
+    number = random.randint(100, 999)
+    ordinal = lambda n: "%d%s" % (n,"tsnrhtdd"[(n//10%10!=1)*(n%10<4)*n%10::4])
+    unit_name = ordinal(number) + " " + unit_name + " Unit"
     return unit_name
 
-def generate_military_unit(amount, unit_name):
+def generate_military_unit(unit_name):
     """Generate military unit name, motto, description, along with a specified number of names."""
 
     llms = OpenAI(temperature=0.9)
 
     response = llms("Generate a list with each entry separated by @ symbols comprising of "\
                     "the following entries:\n"
-                    "A realistic sounding military unit name for a " + unit_name + "unit.\n"
-                    "A motto or slogan for the unit.\n"
-                    + str(amount) + " full names.\n"
+                    "A motto or slogan for the unit " + unit_name + ".\n"
                     "A 250 word description of the military unit.")
 
     response = (response.replace("@ ", "@")).replace('"', "")
