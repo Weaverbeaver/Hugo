@@ -1,5 +1,6 @@
 """Import all the modules"""
 import os
+import shutil
 from urllib.request import urlretrieve
 import streamlit
 from apikey import APIKEY
@@ -7,11 +8,10 @@ from modules.generators import (
     generate_company,
     generate_person,
     generate_bio,
-    generate_image,
-    generate_website,
+    generate_image
 )
-from modules.scanfiles import get_themes
-from modules.hugorun import hugo_execute, zip_web
+from modules.scanfiles import get_themes, zip_web
+from modules.hugorun import hugo_execute, create_website
 
 os.environ["OPENAI_API_KEY"] = APIKEY
 
@@ -41,7 +41,10 @@ if person:
             channels="RGB",
             output_format="auto",
         )
-        generate_website(person=person, role=role, themes=all_themes)
+        if os.path.exists("content/"):
+            shutil.rmtree("content/")
+            os.mkdir("content/")
+        create_website(person=person, role=role, themes=all_themes)
         hugo_execute()
         urlretrieve(biophoto, "public/bio.png")
         zip_web("generated_pages",person,"public")

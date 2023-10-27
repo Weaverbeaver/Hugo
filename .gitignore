@@ -17,3 +17,5 @@ resources/
 .hugo_build.lock
 generated_pages/
 content/
+imagecache/
+static/

@@ -1,13 +1,11 @@
 """module provides functions for taking a title inputand generating text and an image from this"""
-import random
 import os
+from urllib.request import urlretrieve
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 #from langchain.agents import load_tools, initialize_agent
 import openai
-from modules.website import Website
-from modules.hugorun import insert_index
 
 
 def generate_company():
@@ -47,63 +45,71 @@ def generate_bio(thisperson, thiscompany, thisrole):
 def generate_image(thisperson, thisrole):
     """generate an image with Dall-E and return the URL for download"""
     openai.api_key = os.getenv("OPENAI_API_KEY")
-    image_prompt = (
-        "Create a photo of "
-        + thisperson
-        + ", who is the "
-        + thisrole
-        + " of a company to accompany their biography on the company website"
-    )
+    if thisrole == "any":
+        image_prompt = (
+            "Create a professional photo of "
+            + thisperson
+            + "to accompany their biography on the company website"
+        )
+    else:
+        image_prompt = (
+            "Create a profeesional photo of "
+            + thisperson
+            + ", who is the "
+            + thisrole
+            + " of a company to accompany their biography on the company website"
+        )
     photo = openai.Image.create(
         prompt=image_prompt,
         n=1,
         size="256x256",
     )
+
+    if os.path.exists("imagecache/") is False:
+        os.mkdir("imagecache/")
+    urlretrieve(photo["data"][0]["url"], "imagecache/" + thisperson.replace(' ',"") + ".png")
+
     return photo["data"][0]["url"]
 
 
-def generate_website(person, role, themes):
-    """Generates a company name for the person and role.
-    Returns a website class instance"""
-    this_website = Website()
-    this_website.read_toml()
-    this_website.update_title(generate_company())
-    description = generate_bio(
-        thisperson=person, thisrole=role, thiscompany=this_website.toml["title"]
-        )
-    insert_index(person,description,"content","_index.py","main")
-    this_website.update_theme(random.choice(themes))
-    print(this_website)
-    this_website.write_toml()
-    return this_website
-
 def generate_company_people(amount,field):
     """generate a company name, tagline and description, along with a specified number of names"""
+
     llms = OpenAI(temperature=0.9)
     if field == "any":
-        response = llms("Write a list separated by semi-colons of a company name,"\
-                        "a tagline for the company, " + str(amount) + \
-                        " full names, and a 250 word description of the company.")
+        response = llms("Generate a list with each entry seperated by @ symbols comprising of the" \
+                        " following entries:\n" \
+                        "A realistic sounding company name.\n" \
+                        "A tagline for the company.\n" \
+                        + str(amount) + " full names.\n" \
+                        "A 250 word description of the company.")
     else:
-        response = llms("Write a list separated by semi-colons of a " + field + \
-                        " company name, a tagline for the company, "\
-                         + str(amount) + " full names, and a 250 word description of the company.")
+        response = llms("Generate a list with each entry seperated by @ symbols comprising of the" \
+                        " following entries:\n" \
+                        "A realistic sounding " + field + " company name.\n" \
+                        "A tagline for the company.\n" \
+                        + str(amount) + " full names.\n" \
+                        "A 250 word description of the company.")
 
-    response = (response.replace("; ",";")).replace('"',"")
-    formatted = response.split(";")
-
+    response = (response.replace("@ ","@")).replace('"',"")
+    formatted = response.split("@")
 
     for i in enumerate(formatted):
         if ":" in formatted[i[0]]:
-            formatted[i[0]] = formatted[i[0]][formatted[i[0]].find(":")+2:]
-        if formatted[i[0]][:2] == "\n\n":
-            formatted[i[0]] = formatted[i[0]][2:]
+            formatted[i[0]] = formatted[i[0]][formatted[i[0]].find(":")+1:]
+        formatted[i[0]] = formatted[i[0]].strip("\n")
 
     return formatted
 
+
 def generate_bios(people, company):
     """generate a bio for each person input"""
+
+    if "," in people[0]:
+        people = str(people[0]).split(",")
+
     people = [j.strip(" 123456789.") for j in people]
+
     person_array = [ [0]*2 for i in people]
     loop = 0
     llms = OpenAI(temperature=0.9)
@@ -113,4 +119,5 @@ def generate_bios(people, company):
         person_array[loop][0] = i
         person_array[loop][1] = response.replace("\n","")
         loop += 1
+
     return person_array
