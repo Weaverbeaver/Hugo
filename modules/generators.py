@@ -6,6 +6,7 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 #from langchain.agents import load_tools, initialize_agent
 import openai
+import random
 
 
 def generate_company():
@@ -121,3 +122,51 @@ def generate_bios(people, company):
         loop += 1
 
     return person_array
+
+def generate_unit_name(unit_name):
+    """input title"""
+    llms = OpenAI(temperature=0.9)
+    newtitle = llms("Write a name for a " + unit_name + " unit in the military")
+    return newtitle
+
+def generate_unit_type():
+        unit_name = random.choice(["Signals", "Logistics", "Infantry", "Engineers", "Intelligence"])
+        return unit_name
+
+def generate_military_unit(amount, unit_name):
+    """Generate a military unit name, motto, and description, along with a specified number of full names."""
+
+    llms = OpenAI(temperature=0.9)
+    
+    response = llms("Generate a list with each entry separated by @ symbols comprising of the following entries:\n"
+                    "A realistic sounding military unit name for a " + unit_name + "unit.\n"
+                    "A motto or slogan for the unit.\n"
+                    + str(amount) + " full names.\n"
+                    "A 250 word description of the military unit.")
+
+    response = (response.replace("@ ", "@")).replace('"', "")
+    formatted = response.split("@")
+
+    for i in enumerate(formatted):
+        if ":" in formatted[i[0]]:
+            formatted[i[0]] = formatted[i[0]][formatted[i[0]].find(":") + 1:]
+        formatted[i[0]] = formatted[i[0]].strip("\n")
+
+    return formatted
+
+
+def generate_military_image(thisperson, unit_name):
+    """generate an image with Dall-E and return the URL for download"""
+    openai.api_key = os.getenv("OPENAI_API_KEY")
+    image_prompt = (
+        "Create a professional photo of "
+        + thisperson
+        + ", who is within a "
+        + unit_name
+        + " unit of the military to accompany their biography on the website"
+    )
+    photo = openai.Image.create(
+        prompt=image_prompt,
+        n=1,
+        size="256x256",
+    )
