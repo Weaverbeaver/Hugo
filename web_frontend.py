@@ -31,7 +31,7 @@ if person:
             person = generate_person(role)
         bio = generate_bio(person, role, company)
         streamlit.write(bio)
-        biophoto = generate_image(person, role)
+        biophoto = generate_image(person, role, "individual")
         streamlit.image(
             biophoto,
             caption=person + ", " + role,

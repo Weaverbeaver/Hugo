@@ -1,12 +1,12 @@
 """module provides functions for taking a title inputand generating text and an image from this"""
 import os
+import random
 from urllib.request import urlretrieve
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 #from langchain.agents import load_tools, initialize_agent
 import openai
-import random
 
 
 def generate_company():
@@ -43,7 +43,7 @@ def generate_bio(thisperson, thiscompany, thisrole):
     return bio
 
 
-def generate_image(thisperson, thisrole):
+def generate_image(thisperson, thisrole, gen_type):
     """generate an image with Dall-E and return the URL for download"""
     openai.api_key = os.getenv("OPENAI_API_KEY")
     if thisrole == "any":
@@ -68,7 +68,8 @@ def generate_image(thisperson, thisrole):
 
     if os.path.exists("imagecache/") is False:
         os.mkdir("imagecache/")
-    urlretrieve(photo["data"][0]["url"], "imagecache/" + thisperson.replace(' ',"") + ".png")
+    urlretrieve(photo["data"][0]["url"], "imagecache/" + gen_type + "-" \
+                + thisrole + "-" +thisperson.replace(' ',"") + ".png")
 
     return photo["data"][0]["url"]
 
@@ -106,22 +107,26 @@ def generate_company_people(amount,field):
 def generate_bios(people, company):
     """generate a bio for each person input"""
 
+    roles = ["CEO", "CIO", "CFO", "CTO", "CAO", "CCO", "CSO", "CMO"]
+
     if "," in people[0]:
         people = str(people[0]).split(",")
 
     people = [j.strip(" 123456789.") for j in people]
 
-    person_array = [ [0]*2 for i in people]
+    person_array = [ [0]*3 for i in people]
     loop = 0
     llms = OpenAI(temperature=0.9)
     for i in people:
         response = llms("Write a biography about " + i + " to go on the company website. " + i + \
-                        " works at " + company + ".Maximum 300 characters.")
+                        " is the " + roles[loop] + " at " + company + ".Maximum 300 characters.")
         person_array[loop][0] = i
         person_array[loop][1] = response.replace("\n","")
+        person_array[loop][2] = roles[loop]
         loop += 1
 
     return person_array
+
 
 def generate_unit_name(unit_name):
     """input title"""
@@ -130,15 +135,17 @@ def generate_unit_name(unit_name):
     return newtitle
 
 def generate_unit_type():
-        unit_name = random.choice(["Signals", "Logistics", "Infantry", "Engineers", "Intelligence"])
-        return unit_name
+    """generate unit type"""
+    unit_name = random.choice(["Signals", "Logistics", "Infantry", "Engineers", "Intelligence"])
+    return unit_name
 
 def generate_military_unit(amount, unit_name):
-    """Generate a military unit name, motto, and description, along with a specified number of full names."""
+    """Generate military unit name, motto, description, along with a specified number of names."""
 
     llms = OpenAI(temperature=0.9)
-    
-    response = llms("Generate a list with each entry separated by @ symbols comprising of the following entries:\n"
+
+    response = llms("Generate a list with each entry separated by @ symbols comprising of "\
+                    "the following entries:\n"
                     "A realistic sounding military unit name for a " + unit_name + "unit.\n"
                     "A motto or slogan for the unit.\n"
                     + str(amount) + " full names.\n"
@@ -170,3 +177,5 @@ def generate_military_image(thisperson, unit_name):
         n=1,
         size="256x256",
     )
+
+    return photo
