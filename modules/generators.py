@@ -104,7 +104,7 @@ def generate_company_people(amount,field):
     return formatted
 
 
-def generate_bios(people, company):
+def generate_bios(people, company, insert_name, insert_role):
     """generate a bio for each person input"""
 
     roles = ["CEO", "CIO", "CFO", "CTO", "CAO", "CCO", "CSO", "CMO"]
@@ -114,9 +114,20 @@ def generate_bios(people, company):
 
     people = [j.strip(" 123456789.") for j in people]
 
-    person_array = [ [0]*3 for i in people]
+
+    if insert_name != "no":
+
+        roles.remove(insert_role)
+        person_array = [ [0]*3 for i in range(0, len(people)+1)]
+
+    else:
+        
+        person_array = [ [0]*3 for i in people]
+
+
     loop = 0
     llms = OpenAI(temperature=0.9)
+
     for i in people:
         response = llms("Write a biography about " + i + " to go on the company website. " + i + \
                         " is the " + roles[loop] + " at " + company + ".Maximum 300 characters.")
@@ -124,6 +135,14 @@ def generate_bios(people, company):
         person_array[loop][1] = response.replace("\n","")
         person_array[loop][2] = roles[loop]
         loop += 1
+
+    if insert_name != "no": 
+
+        response = llms("Write a biography about " + insert_name + " to go on the company website. " + insert_name + \
+                        " is the " + insert_role + " at " + company + ".Maximum 300 characters.")
+        person_array[-1][0] = insert_name
+        person_array[-1][1] = response.replace("\n","")
+        person_array[-1][2] = insert_role
 
     return person_array
 
