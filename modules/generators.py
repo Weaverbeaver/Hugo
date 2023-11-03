@@ -218,7 +218,7 @@ def generate_military_vehicles_image():
     if os.path.exists("imagecache/") is False:
         os.mkdir("imagecache/")
     num = random.randint(1000, 9999)
-    urlretrieve(photo["data"][0]["url"], "imagecache/", "military_vehicle_image_" + num + ".png")
+    urlretrieve(photo["data"][0]["url"], "imagecache/" + "military_vehicle_image_" + str(num) + ".png")
 
     return photo
 
