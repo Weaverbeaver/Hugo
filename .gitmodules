@@ -95,3 +95,6 @@
 	path = themes/someparts-hugo
 	url = https://github.com/tastaturtier/someparts-hugo.git
 	
+[submodule "themes/hugo-theme-w3css-basic"]
+	path = themes/hugo-theme-w3css-basic
+	url = https://github.com/it-gro/hugo-theme-w3css-basic.git

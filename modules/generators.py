@@ -77,22 +77,31 @@ def generate_image(thisperson, thisrole, gen_type):
 def generate_company_people(amount,field):
     """generate a company name, tagline and description, along with a specified number of names"""
 
-    llms = OpenAI(temperature=0.9)
-    if field == "any":
-        response = llms("Generate a list with each entry seperated by @ symbols comprising of the" \
-                        " following entries:\n" \
-                        "A realistic sounding company name.\n" \
-                        "A tagline for the company.\n" \
-                        + str(amount) + " full names.\n" \
-                        "A 250 word description of the company.")
-    else:
-        response = llms("Generate a list with each entry seperated by @ symbols comprising of the" \
-                        " following entries:\n" \
-                        "A realistic sounding " + field + " company name.\n" \
-                        "A tagline for the company.\n" \
-                        + str(amount) + " full names.\n" \
-                        "A 250 word description of the company.")
-
+    right_ats = False
+    times = 0
+    while not right_ats:
+        llms = OpenAI(temperature=0.9)
+        if field == "any":
+            response = llms("Generate a list with each entry seperated by @ symbols comprising of the" \
+                            " following entries:\n" \
+                            "A realistic sounding company name.\n" \
+                            "A tagline for the company.\n" \
+                            + str(amount) + " full names.\n" \
+                            "A 250 word description of the company.")
+        else:
+            response = llms("Generate a list with each entry seperated by @ symbols comprising of the" \
+                            " following entries:\n" \
+                            "A realistic sounding " + field + " company name.\n" \
+                            "A tagline for the company.\n" \
+                            + str(amount) + " full names.\n" \
+                            "A 250 word description of the company.")
+        
+        print(response)
+        ats_count = response.count("@")
+        times = times + 1
+        if ats_count == 3:
+            right_ats = True
+    print("amount of times ChatGPT generated this text is", times)
     response = (response.replace("@ ","@")).replace('"',"")
     formatted = response.split("@")
 
@@ -100,6 +109,7 @@ def generate_company_people(amount,field):
         if ":" in formatted[i[0]]:
             formatted[i[0]] = formatted[i[0]][formatted[i[0]].find(":")+1:]
         formatted[i[0]] = formatted[i[0]].strip("\n")
+    #put into a function
 
     return formatted
 
@@ -162,8 +172,8 @@ def generate_military_unit(unit_name):
 
     response = llms("Generate a list with each entry separated by @ symbols comprising of "\
                     "the following entries:\n"
-                    "A motto or slogan for the unit " + unit_name + ".\n"
-                    "A 250 word description of the military unit.")
+                    "A catchy motto or slogan for the unit " + unit_name + ", which isnt just the name of the unit.\n"
+                    "A 250 word description of the military unit and their commanding officer.")
 
     response = (response.replace("@ ", "@")).replace('"', "")
     formatted = response.split("@")
@@ -193,3 +203,31 @@ def generate_military_image(thisperson, unit_name):
     )
 
     return photo
+
+def generate_military_vehicles_image():
+    """generate an image with Dall-E and return the URL for download"""
+    openai.api_key = os.getenv("OPENAI_API_KEY")
+    image_prompt = (
+        "Create a professional photo of a military vehicle"
+    )
+    photo = openai.Image.create(
+        prompt=image_prompt,
+        n=1,
+        size="256x256",
+    )
+    if os.path.exists("imagecache/") is False:
+        os.mkdir("imagecache/")
+    num = random.randint(1000, 9999)
+    urlretrieve(photo["data"][0]["url"], "imagecache/", "military_vehicle_image_" + num + ".png")
+
+    return photo
+
+def generate_military_vehicles():
+    """Generate military vehicle images and return a list of their URLs."""
+    vehicle_images = []
+
+    for i in range(2):
+        vehicle_image = generate_military_vehicles_image()
+        vehicle_images.append(vehicle_image)
+
+    return vehicle_images
