@@ -162,9 +162,27 @@ def generate_unit_type():
     """generate unit type"""
     unit_name = random.choice(["Signals", "Logistics", "Infantry", "Engineers", "Intelligence"])
     number = random.randint(100, 999)
-    ordinal = "%d%s" % (number,"tsnrhtdd"[(number//10%10!=1)*(number%10<4)*number%10::4])
+    ordinal = make_ordinal(number)
     unit_name = ordinal + " " + unit_name + " Unit"
     return unit_name
+
+
+def make_ordinal(number):
+    '''
+    Convert an integer into its ordinal representation::
+
+        make_ordinal(0)   => '0th'
+        make_ordinal(3)   => '3rd'
+        make_ordinal(122) => '122nd'
+        make_ordinal(213) => '213th'
+    '''
+    number= int(number)
+    if 11 <= (number % 100) <= 13:
+        suffix = 'th'
+    else:
+        suffix = ['th', 'st', 'nd', 'rd', 'th'][min(number % 10, 4)]
+    return str(number) + suffix
+
 
 def generate_military_unit(unit_name):
     """Generate military unit name, motto, description, along with a specified number of names."""
