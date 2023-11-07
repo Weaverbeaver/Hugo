@@ -1,9 +1,11 @@
+"""Code for generating military format pages"""
 import os
 import random
 import shutil
 import streamlit
 from modules.website import Website
-from modules.generators import generate_unit_type, generate_military_unit, generate_military_vehicles
+from modules.generators import generate_unit_type, generate_military_unit, \
+    generate_military_vehicles
 from modules.hugorun import hugo_execute
 from modules.scanfiles import insert_index, zip_web
 
@@ -13,16 +15,17 @@ from apikey import APIKEY
 
 os.environ["OPENAI_API_KEY"] = APIKEY
 
-insert_name = "no"
-insert_role = ""
+INSERT_NAME = "no"
+INSERT_ROLE = ""
 
 # Create application
 streamlit.title("Website generator (military multi-page sites)")
-site_num = streamlit.slider("How many military units to generate?", min_value=1, max_value=10, value=1)
+site_num = streamlit.slider("How many military units to generate?"\
+                            , min_value=1, max_value=10, value=1)
 max_units = streamlit.slider("Max num of units", min_value=3, max_value=8, value=3)
 insert_name_bool = streamlit.toggle("Insert a name?", value=False)
 if insert_name_bool:
-    insert_name = streamlit.text_input("Enter name of the unit")
+    INSERT_NAME = streamlit.text_input("Enter name of the unit")
 gen_image_bool = streamlit.toggle("Generate images?", value=False)
 
 if streamlit.button("Generate Military Units"):
@@ -60,4 +63,3 @@ if streamlit.button("Generate Military Units"):
 
         hugo_execute()
         zip_web("generated_pages", unit_name.replace(" ", ""), "public")
-

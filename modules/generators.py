@@ -82,20 +82,20 @@ def generate_company_people(amount,field):
     while not right_ats:
         llms = OpenAI(temperature=0.9)
         if field == "any":
-            response = llms("Generate a list with each entry seperated by @ symbols comprising of the" \
-                            " following entries:\n" \
+            response = llms("Generate a list with each entry seperated by @ symbols"\
+                            " comprising of the following entries:\n" \
                             "A realistic sounding company name.\n" \
                             "A tagline for the company.\n" \
                             + str(amount) + " full names.\n" \
                             "A 250 word description of the company.")
         else:
-            response = llms("Generate a list with each entry seperated by @ symbols comprising of the" \
-                            " following entries:\n" \
+            response = llms("Generate a list with each entry seperated by @ symbols "\
+                            "comprising of the following entries:\n" \
                             "A realistic sounding " + field + " company name.\n" \
                             "A tagline for the company.\n" \
                             + str(amount) + " full names.\n" \
                             "A 250 word description of the company.")
-        
+
         print(response)
         ats_count = response.count("@")
         times = times + 1
@@ -131,7 +131,7 @@ def generate_bios(people, company, insert_name, insert_role):
         person_array = [ [0]*3 for i in range(0, len(people)+1)]
 
     else:
-        
+
         person_array = [ [0]*3 for i in people]
 
 
@@ -146,9 +146,10 @@ def generate_bios(people, company, insert_name, insert_role):
         person_array[loop][2] = roles[loop]
         loop += 1
 
-    if insert_name != "no": 
+    if insert_name != "no":
 
-        response = llms("Write a biography about " + insert_name + " to go on the company website. " + insert_name + \
+        response = llms("Write a biography about " + insert_name + \
+                        " to go on the company website. " + insert_name + \
                         " is the " + insert_role + " at " + company + ".Maximum 300 characters.")
         person_array[-1][0] = insert_name
         person_array[-1][1] = response.replace("\n","")
@@ -161,8 +162,8 @@ def generate_unit_type():
     """generate unit type"""
     unit_name = random.choice(["Signals", "Logistics", "Infantry", "Engineers", "Intelligence"])
     number = random.randint(100, 999)
-    ordinal = lambda n: "%d%s" % (n,"tsnrhtdd"[(n//10%10!=1)*(n%10<4)*n%10::4])
-    unit_name = ordinal(number) + " " + unit_name + " Unit"
+    ordinal = "%d%s" % (number,"tsnrhtdd"[(number//10%10!=1)*(number%10<4)*number%10::4])
+    unit_name = ordinal + " " + unit_name + " Unit"
     return unit_name
 
 def generate_military_unit(unit_name):
@@ -172,7 +173,8 @@ def generate_military_unit(unit_name):
 
     response = llms("Generate a list with each entry separated by @ symbols comprising of "\
                     "the following entries:\n"
-                    "A catchy motto or slogan for the unit " + unit_name + ", which isnt just the name of the unit.\n"
+                    "A catchy motto or slogan for the unit " + unit_name + \
+                    ", which isnt just the name of the unit.\n"
                     "A 250 word description of the military unit and their commanding officer.")
 
     response = (response.replace("@ ", "@")).replace('"', "")
@@ -218,16 +220,17 @@ def generate_military_vehicles_image():
     if os.path.exists("imagecache/") is False:
         os.mkdir("imagecache/")
     num = random.randint(1000, 9999)
-    urlretrieve(photo["data"][0]["url"], "imagecache/" + "military_vehicle_image_" + str(num) + ".png")
+    urlretrieve(photo["data"][0]["url"], "imagecache/" +\
+         "military_vehicle_image_" + str(num) + ".png")
 
     return photo
 
-def generate_military_vehicles():
-    """Generate military vehicle images and return a list of their URLs."""
-    vehicle_images = []
+# def generate_military_vehicles():
+#     """Generate military vehicle images and return a list of their URLs."""
+#     vehicle_images = []
 
-    for i in range(2):
-        vehicle_image = generate_military_vehicles_image()
-        vehicle_images.append(vehicle_image)
+#     for i in range(2):
+#         vehicle_image = generate_military_vehicles_image()
+#         vehicle_images.append(vehicle_image)
 
-    return vehicle_images
+#     return vehicle_images

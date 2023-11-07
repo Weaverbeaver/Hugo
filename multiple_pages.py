@@ -12,18 +12,18 @@ from apikey import APIKEY
 
 os.environ["OPENAI_API_KEY"] = APIKEY
 
-insert_name = "no"
-insert_role = ""
+INSERT_NAME = "no"
+INSERT_ROLE = ""
 
 # Create application
 streamlit.title("Website generator (multi-page sites)")
 site_num = streamlit.slider("How many sites to generate?",min_value=1, max_value=10, value=1)
 max_people = streamlit.slider("Max num of people", min_value=3, max_value=8, value=3)
 insert_name_bool = streamlit.toggle("Insert a name?", value=False)
-if insert_name_bool == True:
+if insert_name_bool is True:
     streamlit.caption("If enabled, the entered name will be inserted into the first "\
                       "generated site. All following sites will generate as normal.")
-    insert_name = streamlit.text_input("Enter name of person")
+    INSERT_NAME = streamlit.text_input("Enter name of person")
     roles = ["CEO", "CIO", "CFO", "CTO"]
     insert_role = streamlit.radio("Role", roles, index=3)
 gen_image_bool = streamlit.toggle("Generate images?", value=False)
@@ -45,9 +45,9 @@ if streamlit.button("Go"):
         streamlit.write(company_gen[1])
         streamlit.write(company_gen[-1])
 
-        people_desc = generate_bios(people, company_gen[0], insert_name, insert_role)
-        insert_name = "no"
-        insert_role = ""
+        people_desc = generate_bios(people, company_gen[0], INSERT_NAME, INSERT_ROLE)
+        INSERT_NAME = "no"
+        INSERT_ROLE = ""
 
         TEAM_TEXT = team_page_build(people_desc, gen_image_bool)
 

@@ -1,7 +1,7 @@
 """module provides high level functions for creating websites with hugo"""
 import subprocess
 import os
-import random
+#import random
 import shutil
 from urllib.request import urlretrieve
 from modules.generators import generate_image, generate_company, generate_bio
@@ -71,6 +71,7 @@ def create_website(person, role, themes):
         thisperson=person, thisrole=role, thiscompany=this_website.toml["title"]
         )
     insert_index(person,description,"content","_index.md","main")
+    print(themes)
     this_website.update_theme("ananke")
     print(this_website)
     this_website.write_toml()
