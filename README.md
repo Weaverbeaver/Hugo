@@ -6,14 +6,18 @@ This application generates static websites using the ChatGPT API to generate bio
 
 ### Current Features
 
-- Generates up to 10 single page websites
-- Biography of a single "C" level employee on each website
-- First name prescribed and future names auto-generated
+- Individual generation
+  - Generates up to 10 single page websites
+  - Biography of a single "C" level employee on each website
+  - First name prescribed and future names auto-generated
+- Company generation
+  - Generates up to 10 multi page company websites
+  - Names and biographies of between 3 and 8 people per company
+  - Choose to many insert a person into the first company
 
 ### Roadmap
 
-- More complete websites that contain biographies of the company and all "C" level staff.
-- Caching of generated images in a repository to reduce costs. Initially, this will be local caching. A hosted repository will follow at a later date.
+- Caching of generated images in a repository to reduce costs. Currently, images are cached locally.
 - Migration of codebase and hosting to corporate services. This will include the git repository, the web front end and the image repository.
 
 ## Components
@@ -24,9 +28,9 @@ The application is written in python3. It is designed to be executed locally wit
 
 generators.py - Contains a number of functions used to generate content using OpenAI API.
 
-hugorun.py - Functions to execute the static website generator, Hugo, and export the generated website as a zip file.
+hugorun.py - Functions to execute the static website generator, Hugo, concatenate people into a paragraph, and create a website class.
 
-scanfile.py - Enumerates Hugo themes.
+scanfile.py - Functions to enumerate Hugo themes, create .md files, and export the generated website as a zip file.
 
 website.py - A class for a website instance. Contains the config for the website and functions to update the config.
 

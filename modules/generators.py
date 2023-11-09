@@ -158,12 +158,14 @@ def generate_bios(people, company, insert_name, insert_role):
     return person_array
 
 
-def generate_unit_type():
+def make_unit_name():
     """generate unit type"""
+
     unit_name = random.choice(["Signals", "Logistics", "Infantry", "Engineers", "Intelligence"])
     number = random.randint(100, 999)
     ordinal = make_ordinal(number)
     unit_name = ordinal + " " + unit_name + " Unit"
+
     return unit_name
 
 
@@ -181,6 +183,7 @@ def make_ordinal(number):
         suffix = 'th'
     else:
         suffix = ['th', 'st', 'nd', 'rd', 'th'][min(number % 10, 4)]
+
     return str(number) + suffix
 
 
@@ -189,59 +192,14 @@ def generate_military_unit(unit_name):
 
     llms = OpenAI(temperature=0.9)
 
-    response = llms("Generate a list with each entry separated by @ symbols comprising of "\
-                    "the following entries:\n"
-                    "A catchy motto or slogan for the unit " + unit_name + \
-                    ", which isnt just the name of the unit.\n"
-                    "A 250 word description of the military unit and their commanding officer.")
+    slogan = llms("Generate a slogan for the unit " + unit_name + \
+                    ", which isnt just the name of the unit.")
+    description = llms("Generate a 500 word description of the" + unit_name)
 
-    response = (response.replace("@ ", "@")).replace('"', "")
-    formatted = response.split("@")
-
-    for i in enumerate(formatted):
-        if ":" in formatted[i[0]]:
-            formatted[i[0]] = formatted[i[0]][formatted[i[0]].find(":") + 1:]
-        formatted[i[0]] = formatted[i[0]].strip("\n")
+    formatted = [slogan,description]
 
     return formatted
 
-
-def generate_military_image(thisperson, unit_name):
-    """generate an image with Dall-E and return the URL for download"""
-    openai.api_key = os.getenv("OPENAI_API_KEY")
-    image_prompt = (
-        "Create a professional photo of "
-        + thisperson
-        + ", who is within a "
-        + unit_name
-        + " unit of the military to accompany their biography on the website"
-    )
-    photo = openai.Image.create(
-        prompt=image_prompt,
-        n=1,
-        size="256x256",
-    )
-
-    return photo
-
-def generate_military_vehicles_image():
-    """generate an image with Dall-E and return the URL for download"""
-    openai.api_key = os.getenv("OPENAI_API_KEY")
-    image_prompt = (
-        "Create a professional photo of a military vehicle"
-    )
-    photo = openai.Image.create(
-        prompt=image_prompt,
-        n=1,
-        size="256x256",
-    )
-    if os.path.exists("imagecache/") is False:
-        os.mkdir("imagecache/")
-    num = random.randint(1000, 9999)
-    urlretrieve(photo["data"][0]["url"], "imagecache/" +\
-         "military_vehicle_image_" + str(num) + ".png")
-
-    return photo
 
 # def generate_military_vehicles():
 #     """Generate military vehicle images and return a list of their URLs."""
