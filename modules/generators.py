@@ -1,5 +1,6 @@
 """module provides functions for taking a title inputand generating text and an image from this"""
 import os
+import random
 from urllib.request import urlretrieve
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
@@ -42,7 +43,7 @@ def generate_bio(thisperson, thiscompany, thisrole):
     return bio
 
 
-def generate_image(thisperson, thisrole):
+def generate_image(thisperson, thisrole, gen_type):
     """generate an image with Dall-E and return the URL for download"""
     openai.api_key = os.getenv("OPENAI_API_KEY")
     if thisrole == "any":
@@ -67,7 +68,8 @@ def generate_image(thisperson, thisrole):
 
     if os.path.exists("imagecache/") is False:
         os.mkdir("imagecache/")
-    urlretrieve(photo["data"][0]["url"], "imagecache/" + thisperson.replace(' ',"") + ".png")
+    urlretrieve(photo["data"][0]["url"], "imagecache/" + gen_type + "-" \
+                + thisrole + "-" +thisperson.replace(' ',"") + ".png")
 
     return photo["data"][0]["url"]
 
@@ -75,22 +77,31 @@ def generate_image(thisperson, thisrole):
 def generate_company_people(amount,field):
     """generate a company name, tagline and description, along with a specified number of names"""
 
-    llms = OpenAI(temperature=0.9)
-    if field == "any":
-        response = llms("Generate a list with each entry seperated by @ symbols comprising of the" \
-                        " following entries:\n" \
-                        "A realistic sounding company name.\n" \
-                        "A tagline for the company.\n" \
-                        + str(amount) + " full names.\n" \
-                        "A 250 word description of the company.")
-    else:
-        response = llms("Generate a list with each entry seperated by @ symbols comprising of the" \
-                        " following entries:\n" \
-                        "A realistic sounding " + field + " company name.\n" \
-                        "A tagline for the company.\n" \
-                        + str(amount) + " full names.\n" \
-                        "A 250 word description of the company.")
+    right_ats = False
+    times = 0
+    while not right_ats:
+        llms = OpenAI(temperature=0.9)
+        if field == "any":
+            response = llms("Generate a list with each entry seperated by @ symbols"\
+                            " comprising of the following entries:\n" \
+                            "A realistic sounding company name.\n" \
+                            "A tagline for the company.\n" \
+                            + str(amount) + " full names.\n" \
+                            "A 250 word description of the company.")
+        else:
+            response = llms("Generate a list with each entry seperated by @ symbols "\
+                            "comprising of the following entries:\n" \
+                            "A realistic sounding " + field + " company name.\n" \
+                            "A tagline for the company.\n" \
+                            + str(amount) + " full names.\n" \
+                            "A 250 word description of the company.")
 
+        print(response)
+        ats_count = response.count("@")
+        times = times + 1
+        if ats_count == 3:
+            right_ats = True
+    print("amount of times ChatGPT generated this text is", times)
     response = (response.replace("@ ","@")).replace('"',"")
     formatted = response.split("@")
 
@@ -98,26 +109,104 @@ def generate_company_people(amount,field):
         if ":" in formatted[i[0]]:
             formatted[i[0]] = formatted[i[0]][formatted[i[0]].find(":")+1:]
         formatted[i[0]] = formatted[i[0]].strip("\n")
+    #put into a function
 
     return formatted
 
 
-def generate_bios(people, company):
+def generate_bios(people, company, insert_name, insert_role):
     """generate a bio for each person input"""
+
+    roles = ["CEO", "CIO", "CFO", "CTO", "CAO", "CCO", "CSO", "CMO"]
 
     if "," in people[0]:
         people = str(people[0]).split(",")
 
     people = [j.strip(" 123456789.") for j in people]
 
-    person_array = [ [0]*2 for i in people]
+
+    if insert_name != "no":
+
+        roles.remove(insert_role)
+        person_array = [ [0]*3 for i in range(0, len(people)+1)]
+
+    else:
+
+        person_array = [ [0]*3 for i in people]
+
+
     loop = 0
     llms = OpenAI(temperature=0.9)
+
     for i in people:
         response = llms("Write a biography about " + i + " to go on the company website. " + i + \
-                        " works at " + company + ".Maximum 300 characters.")
+                        " is the " + roles[loop] + " at " + company + ".Maximum 300 characters.")
         person_array[loop][0] = i
         person_array[loop][1] = response.replace("\n","")
+        person_array[loop][2] = roles[loop]
         loop += 1
 
+    if insert_name != "no":
+
+        response = llms("Write a biography about " + insert_name + \
+                        " to go on the company website. " + insert_name + \
+                        " is the " + insert_role + " at " + company + ".Maximum 300 characters.")
+        person_array[-1][0] = insert_name
+        person_array[-1][1] = response.replace("\n","")
+        person_array[-1][2] = insert_role
+
     return person_array
+
+
+def make_unit_name():
+    """generate unit type"""
+
+    unit_name = random.choice(["Signals", "Logistics", "Infantry", "Engineers", "Intelligence"])
+    number = random.randint(100, 999)
+    ordinal = make_ordinal(number)
+    unit_name = ordinal + " " + unit_name + " Unit"
+
+    return unit_name
+
+
+def make_ordinal(number):
+    '''
+    Convert an integer into its ordinal representation::
+
+        make_ordinal(0)   => '0th'
+        make_ordinal(3)   => '3rd'
+        make_ordinal(122) => '122nd'
+        make_ordinal(213) => '213th'
+    '''
+    number= int(number)
+    if 11 <= (number % 100) <= 13:
+        suffix = 'th'
+    else:
+        suffix = ['th', 'st', 'nd', 'rd', 'th'][min(number % 10, 4)]
+
+    return str(number) + suffix
+
+
+def generate_military_unit(unit_name):
+    """Generate military unit name, motto, description, along with a specified number of names."""
+
+    llms = OpenAI(temperature=0.9)
+
+    slogan = llms("Generate a slogan for the unit " + unit_name + \
+                    ", which isnt just the name of the unit.")
+    description = llms("Generate a 500 word description of the" + unit_name)
+
+    formatted = [slogan,description]
+
+    return formatted
+
+
+# def generate_military_vehicles():
+#     """Generate military vehicle images and return a list of their URLs."""
+#     vehicle_images = []
+
+#     for i in range(2):
+#         vehicle_image = generate_military_vehicles_image()
+#         vehicle_images.append(vehicle_image)
+
+#     return vehicle_images

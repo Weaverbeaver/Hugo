@@ -25,7 +25,7 @@ def test_gen_bio():
 
 def test_gen_image(tmp_path):
     """Testing that bio.png is created and is larger than 100KB"""
-    biophoto = generate_image("Joe","CEO")
+    biophoto = generate_image("Joe","CEO","individual")
     print(tmp_path)
     urlretrieve(biophoto, str(tmp_path)+"\\bio.png")
     assert os.path.isfile(str(tmp_path)+"\\bio.png")

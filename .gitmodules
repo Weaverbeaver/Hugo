@@ -1,97 +1,12 @@
-[submodule "themes/accessible-minimalism-hugo-theme"]
-	path = themes/accessible-minimalism-hugo-theme
-	url = https://github.com/leonstafford/accessible-minimalism-hugo-theme.git
-[submodule "themes/aether"]
-	path = themes/aether
-	url = https://github.com/josephhutch/aether.git
-[submodule "themes/ananke"]
-	path = themes/ananke
-	url = https://github.com/theNewDynamic/gohugo-theme-ananke.git
-[submodule "themes/axiom"]
-	path = themes/axiom
-	url = https://github.com/marketempower/axiom.git
-[submodule "themes/basicwebtheme"]
-	path = themes/basicwebtheme
-	url = https://github.com/mdashx/basicwebtheme.git
-[submodule "themes/Binario"]
-	path = themes/Binario
-	url = https://github.com/Vimux/Binario.git
-[submodule "themes/bodhi"]
-	path = themes/bodhi
-	url = https://github.com/rhnvrm/bodhi.git
 [submodule "themes/compose"]
 	path = themes/compose
 	url = https://github.com/onweru/compose.git
-[submodule "themes/cupper-hugo-theme"]
-	path = themes/cupper-hugo-theme
-	url = https://github.com/zwbetz-gh/cupper-hugo-theme.git
-[submodule "themes/docter"]
-	path = themes/docter
-	url = https://github.com/edavidaja/docter.git
-[submodule "themes/flexible-seo-hugo"]
-	path = themes/flexible-seo-hugo
-	url = https://github.com/pjbakker/flexible-seo-hugo.git
-[submodule "themes/hugo-bearblog"]
-	path = themes/hugo-bearblog
-	url = https://github.com/janraasch/hugo-bearblog.git
-[submodule "themes/hugo-book"]
-	path = themes/hugo-book
-	url = https://github.com/alex-shpak/hugo-book.git
-[submodule "themes/hugo-notepadium"]
-	path = themes/hugo-notepadium
-	url = https://github.com/cntrump/hugo-notepadium.git
-[submodule "themes/hugo-piercer-theme"]
-	path = themes/hugo-piercer-theme
-	url = https://github.com/danielkvist/hugo-piercer-theme.git
-[submodule "themes/hugo-researcher"]
-	path = themes/hugo-researcher
-	url = https://github.com/ojroques/hugo-researcher.git
-[submodule "themes/hugo-resume"]
-	path = themes/hugo-resume
-	url = https://github.com/eddiewebb/hugo-resume.git
-[submodule "themes/hugo-sustain"]
-	path = themes/hugo-sustain
-	url = https://github.com/nurlansu/hugo-sustain.git
-[submodule "themes/hugo-tania"]
-	path = themes/hugo-tania
-	url = https://github.com/WingLim/hugo-tania.git
-[submodule "themes/hugo-theme-anubis"]
-	path = themes/hugo-theme-anubis
-	url = https://github.com/Mitrichius/hugo-theme-anubis.git
-[submodule "themes/hugo-theme-docport"]
-	path = themes/hugo-theme-docport
-	url = https://github.com/vjeantet/hugo-theme-docport.git
-[submodule "themes/hugo-theme-notrack"]
-	path = themes/hugo-theme-notrack
-	url = https://github.com/gevhaz/hugo-theme-notrack.git
-[submodule "themes/hugo-theme-robotico"]
-	path = themes/hugo-theme-robotico
-	url = https://github.com/wileybaba/hugo-theme-robotico.git
-[submodule "themes/hugo-theme-zen"]
-	path = themes/hugo-theme-zen
-	url = https://github.com/frjo/hugo-theme-zen.git
-[submodule "themes/hugo-webslides"]
-	path = themes/hugo-webslides
-	url = https://github.com/RCJacH/hugo-webslides.git
-[submodule "themes/hugo-whisper-theme"]
-	path = themes/hugo-whisper-theme
-	url = https://github.com/JugglerX/hugo-whisper-theme.git
-[submodule "themes/hugo-xmin"]
-	path = themes/hugo-xmin
-	url = https://github.com/yihui/hugo-xmin.git
-[submodule "themes/hugo_theme_adam_eve"]
-	path = themes/hugo_theme_adam_eve
-	url = https://github.com/blankoworld/hugo_theme_adam_eve.git
-[submodule "themes/mainroad"]
-	path = themes/mainroad
-	url = https://github.com/Vimux/mainroad.git
-[submodule "themes/manis-hugo-theme"]
-	path = themes/manis-hugo-theme
-	url = https://github.com/yursan9/manis-hugo-theme.git
-[submodule "themes/simple-style"]
-	path = themes/simple-style
-	url = https://github.com/yanlinlin82/simple-style.git
-[submodule "themes/someparts-hugo"]
-	path = themes/someparts-hugo
-	url = https://github.com/tastaturtier/someparts-hugo.git
-	
+[submodule "themes/dot-org-hugo-theme"]
+	path = themes/dot-org-hugo-theme
+	url = https://github.com/cncf/dot-org-hugo-theme.git
+[submodule "themes/ananke"]
+	path = themes/ananke
+	url = https://github.com/theNewDynamic/gohugo-theme-ananke.git
+[submodule "themes/hugo-aracana"]
+	path = themes/hugo-aracana
+	url = https://github.com/half-duplex/hugo-arcana.git
