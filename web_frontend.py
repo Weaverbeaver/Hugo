@@ -75,7 +75,7 @@ elif version_select == "Companys":
                         "generated site. All following sites will generate as normal.")
         INSERT_NAME = streamlit.text_input("Enter name of person")
         roles = ["CEO", "CIO", "CFO", "CTO"]
-        insert_role = streamlit.radio("Role", roles, index=3)
+        INSERT_ROLE = streamlit.radio("Role", roles, index=3)
     gen_image_bool = streamlit.toggle("Generate images?", value=False)
 
     if streamlit.button("Go"):
