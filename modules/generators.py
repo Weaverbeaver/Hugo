@@ -35,10 +35,19 @@ def generate_bio(thisperson, thiscompany, thisrole):
             "Maximum 500 characters."
         ),
     )
-    bio_chain = LLMChain(llm=llms, prompt=bio_template)
-    bio = bio_chain.run(
-        {"thisperson": thisperson, "thisrole": thisrole, "thiscompany": thiscompany}
-    )
+        
+    try:
+        print("try")
+        bio_chain = LLMChain(llm=llms, prompt=bio_template)
+        bio = bio_chain.run(
+            {"thisperson": thisperson, "thisrole": thisrole, "thiscompany": thiscompany}
+        )
+    
+    except:
+        print("except")
+        person = generate_person(thisrole)
+        generate_bio(person, thiscompany, thisrole)
+    
     print(bio)
     return bio
 
@@ -60,18 +69,29 @@ def generate_image(thisperson, thisrole, gen_type):
             + thisrole
             + " of a company to accompany their biography on the company website"
         )
-    photo = openai.Image.create(
-        prompt=image_prompt,
-        n=1,
-        size="256x256",
-    )
 
-    if os.path.exists("imagecache/") is False:
-        os.mkdir("imagecache/")
-    urlretrieve(photo["data"][0]["url"], "imagecache/" + gen_type + "-" \
-                + thisrole + "-" +thisperson.replace(' ',"") + ".png")
+    try:
+        photo = openai.Image.create(
+            prompt=image_prompt,
+            n=1,
+            size="256x256",
+        )
 
-    return photo["data"][0]["url"]
+        if os.path.exists("imagecache/") is False:
+            os.mkdir("imagecache/")
+        urlretrieve(photo["data"][0]["url"], "imagecache/" + gen_type + "-" \
+                    + thisrole + "-" +thisperson.replace(' ',"") + ".png")
+
+    except:
+        person = generate_person(thisrole)
+        generate_image(person, thisrole, gen_type)
+
+    # if os.path.exists("imagecache/") is False:
+    #     os.mkdir("imagecache/")
+    # urlretrieve(photo["data"][0]["url"], "imagecache/" + gen_type + "-" \
+    #             + thisrole + "-" +thisperson.replace(' ',"") + ".png")
+    #
+    # return photo["data"][0]["url"]
 
 
 def generate_company_people(amount,field):
@@ -199,6 +219,15 @@ def generate_military_unit(unit_name):
     formatted = [slogan,description]
 
     return formatted
+
+def military_division_text(military_name, division_type):
+    
+    llms = OpenAI(temperature=0.9)
+
+    division_text = llms("Generate a bio based on a millitary team named " + military_name + ", in a " + division_type + " division."\
+                         "Maximum 200 words.")
+
+    return division_text
 
 
 # def generate_military_vehicles():
